@@ -1,5 +1,4 @@
 .DS_Store
-.vagrant
 log/
 log/**/*
 tmp/**/*
@@ -30,3 +29,6 @@ reports
 _yardoc
 doc/
 .env
+.vagrant
+private_key
+
