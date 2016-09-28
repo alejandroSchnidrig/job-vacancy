@@ -2,6 +2,7 @@ Job Vacancy Application
 =======================
 Adaptacion Grupo Ingenieria de Software 2016
 * Fix: .travis.yml FILE must say 2.2.0 (not 1.x.x)
+* Realizado el Fork.
 
 [![Build Status](https://snap-ci.com/nicopaez/job-vacancy/branch/develop/build_image)](https://snap-ci.com/nicopaez/job-vacancy/branch/develop)
 
