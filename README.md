@@ -1,5 +1,6 @@
 Job Vacancy Application
 =======================
+rama gravatar
 Adaptacion Grupo Ingenieria de Software 2016
 * Fix: .travis.yml FILE must say 2.2.0 (not 1.x.x)
 * Realizado el Fork.
