@@ -1,9 +1,12 @@
 Job Vacancy Application
 =======================
+<<<<<<< HEAD
 rama gravatar
 Adaptacion Grupo Ingenieria de Software 2016
 * Fix: .travis.yml FILE must say 2.2.0 (not 1.x.x)
 * Realizado el Fork.
+=======
+>>>>>>> 396df7129553ef6733dec8ce40c303a34b51e826
 
 [![Build Status](https://snap-ci.com/nicopaez/job-vacancy/branch/develop/build_image)](https://snap-ci.com/nicopaez/job-vacancy/branch/develop)
 
@@ -20,4 +23,7 @@ Some conventions to work on it:
 * Add descriptive commits messages in English to every commit
 * Write code and comments in English
 * Use REST routes
+<<<<<<< HEAD
 
+=======
+>>>>>>> 396df7129553ef6733dec8ce40c303a34b51e826
