@@ -15,8 +15,7 @@
       	</div>
       	<div class="profile"> 
 						<% if signed_in? %>
-            <!-- <img src="https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740" /> -->
-          <!--   <img src=" + current_user.getGravatarImgAddress + " />  -->
+            <%= image_tag(current_user.getGravatarImgAddress, :alt => "imagen no encontrada!") %>
 							<%= current_user.email %>
 						<% end %>
 				</div>
