@@ -1,7 +1,5 @@
 Given(/^i am a user$/) do
     @primero = User.first
-    @primero.email
-	should match("offerer@test.com")
 end
 
 Given(/^I am logged$/) do
@@ -16,6 +14,8 @@ When(/^I access to the home page$/) do
   visit '/'
 end
 
-Then(/^i can see my gravatar at the top page$/) do |content|
-  page.should have_content(content)
+Then(/^i can see my gravatar at the top page$/) do
+   page.status_code.should be 200
+ page.should have_xpath('//img[@src="https://www.gravatar.com/avatar/118adc2d60d63eaa9b12b91d78531045"]')
+
 end
