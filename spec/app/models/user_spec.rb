@@ -52,7 +52,7 @@ describe User do
 		before do
 			@password = 'password'
 		 	@user = User.new
-		 	@user.email = 'john.doe@someplace.com'
+		 	@user.email = 'nicopaez@gmail.com'
 		 	@user.password = @password
 		end
 
@@ -73,6 +73,14 @@ describe User do
 			email = @user.email
 			User.should_receive(:find_by_email).with(email).and_return(@user)
 			User.authenticate(email, @password).should eq @user
+		end
+
+		it 'deberia obtener img completo' do
+
+		      esperado = 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740'
+		    # esperado = 'https://www.gravatar.com/avatar/' 
+		    #esperado = 'nicopaez@gmail.com'
+		    expect(@user.getGravatarImgAddress).to eq(esperado)
 		end
 
 	end

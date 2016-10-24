@@ -16,6 +16,6 @@ When(/^I access to the home page$/) do
   visit '/'
 end
 
-Then(/^i can see my gravatar at the top page$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^i can see my gravatar at the top page$/) do |content|
+  page.should have_content(content)
 end
