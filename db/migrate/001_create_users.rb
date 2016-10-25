@@ -5,7 +5,6 @@ migration 1, :create_users do
       column :name, DataMapper::Property::String, :length => 255
       column :crypted_password, DataMapper::Property::String, :length => 255
       column :email, DataMapper::Property::String, :length => 255
-      column :company, DataMapper::Property::String, :length => 255
     end
   end
 
