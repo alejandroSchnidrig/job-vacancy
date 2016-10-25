@@ -16,5 +16,5 @@ When(/^I share the offer$/) do
 end
 
 Then(/^the person should receive a mail with the offer info$/) do
-  pending 
+  pending
 end
