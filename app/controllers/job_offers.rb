@@ -59,6 +59,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.get(params[:offer_id])    
     contact_email = params[:job_sharing][:contact_email]
     comments = params[:job_sharing][:comments]
+    @job_offer.comments = comments
     @job_sharing = JobSharing.create_for(contact_email, comments, @job_offer)
     @job_sharing.process
     flash[:success] = 'Offer information sent.'

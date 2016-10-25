@@ -10,6 +10,7 @@ describe JobOffer do
 		it { should respond_to( :title ) }
 		it { should respond_to( :location) }
 		it { should respond_to( :description ) }
+		it { should respond_to( :comments ) }
 		it { should respond_to( :owner ) }
 		it { should respond_to( :owner= ) }
 		it { should respond_to( :created_on) }
