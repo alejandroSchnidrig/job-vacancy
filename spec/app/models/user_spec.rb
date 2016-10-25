@@ -10,6 +10,7 @@ describe User do
 		it { should respond_to( :name ) }
 		it { should respond_to( :crypted_password) }
 		it { should respond_to( :email ) }
+                it { should respond_to( :company ) }
 		it { should respond_to( :job_offers ) }
 
 	end
@@ -36,6 +37,13 @@ describe User do
 	  	user.name = 'John Doe'
 	  	user.email = 'john.doe@someplace.com'
 	  	expect(user.valid?).to eq false
+	  end
+ 	
+	  it 'should be true when company is blank' do
+	  	user.name = 'John Doe'
+	  	user.email = 'john.doe@someplace.com'
+		user.password = 'a_secure_passWord!'
+	  	expect(user.valid?).to eq true
 	  end
 
 	  it 'should be true when all field are valid' do
