@@ -5,7 +5,7 @@ class JobSharing
 	attr_accessor :job_offer
 
 	def self.create_for(email, comments, offer)
-		app = JobApplication.new
+		app = JobSharing.new
 		app.contact_email = email
 		app.comments = comments
 		app.job_offer = offer
@@ -13,7 +13,7 @@ class JobSharing
 	end
 
 	def process
-    JobVacancy::App.deliver(:notification, :contact_info_email, self)
+    JobVacancy::App.deliver(:notification, :sharing_email, self)
   end
 
 end

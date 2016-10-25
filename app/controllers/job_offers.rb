@@ -55,6 +55,16 @@ JobVacancy::App.controllers :job_offers do
     redirect '/job_offers'
   end
 
+  post :send, :with => :offer_id do
+    @job_offer = JobOffer.get(params[:offer_id])    
+    contact_email = params[:job_sharing][:contact_email]
+    comments = params[:job_sharing][:comments]
+    @job_sharing = JobSharing.create_for(contact_email, comments, @job_offer)
+    @job_sharing.process
+    flash[:success] = 'Offer information sent.'
+    redirect '/job_offers'
+  end
+
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
