@@ -8,7 +8,11 @@ Given(/^that exist a job offer$/) do
 end
 
 When(/^I share the offer$/) do
-  pending 
+  click_link 'Share'
+  @job_sharing_comments = 'user comments'
+  fill_in('job_sharing[contact_email]', :with => 'applicant@test.com')
+  fill_in('job_sharing[comments]', :with => '@job_sharing_comments')
+  click_button('Send')
 end
 
 Then(/^the person should receive a mail with the offer info$/) do
