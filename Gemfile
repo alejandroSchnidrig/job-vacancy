@@ -33,6 +33,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'json'
 gem 'clockwork'
 gem 'twitter'
+gem 'digest'
 
 # Test requirements
 group :staging, :production do
