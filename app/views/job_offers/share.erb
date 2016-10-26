@@ -1,0 +1,16 @@
+<h1>Share The Job Offer</h1>
+
+	
+<p>Please enter your contact email and add some comments to share this offer.</p>
+<% form_for(@job_sharing, "/job_offers/send/#{@job_offer.id}") do |f| %>
+
+  <%= f.label :contact_email %>
+  <%= f.text_field :contact_email %>
+
+  <%= f.label :comments %>
+  <%= f.text_area :comments, :class => "input-block-level" %>
+
+	<hr/>
+  <%= f.submit "Send", :class => "btn btn-primary" %>
+  <%= link_to 'Cancel', url_for(:job_offers, :latest), :class => "btn btn-secondary" %>
+<% end %>

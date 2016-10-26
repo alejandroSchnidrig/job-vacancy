@@ -42,12 +42,21 @@
 JobVacancy::App.mailer :notification do
 
   email :contact_info_email do | job_application |
-    from 'no_reply@jobvacancy.com'
+    from 'n2.jobvacancy@gmail.com'
     to job_application.applicant_email
     subject 'Job Application: Contact information'
     locals :job_offer => job_application.job_offer
     content_type :plain
     render 'notification/contant_info_email'
+  end
+
+  email :sharing_email do | job_sharing |
+    from 'n2.jobvacancy@gmail.com'
+    to job_sharing.contact_email
+    subject 'Job Sharing: Offer information'
+    locals :job_offer => job_sharing.job_offer
+    content_type :plain
+    render 'notification/sharing_email'
   end
 
 end

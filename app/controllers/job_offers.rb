@@ -33,6 +33,13 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/apply'
   end
 
+  get :share, :with =>:offer_id  do
+    @job_offer = JobOffer.get(params[:offer_id])
+    @job_sharing = JobSharing.new
+    # ToDo: validate the current user is the owner of the offer
+    render 'job_offers/share'
+  end
+
   post :search do
     @offers = JobOffer.all(:title.like => "%#{params[:q]}%")
     render 'job_offers/list'
@@ -45,6 +52,17 @@ JobVacancy::App.controllers :job_offers do
     @job_application = JobApplication.create_for(applicant_email, @job_offer)
     @job_application.process
     flash[:success] = 'Contact information sent.'
+    redirect '/job_offers'
+  end
+
+  post :send, :with => :offer_id do
+    @job_offer = JobOffer.get(params[:offer_id])    
+    contact_email = params[:job_sharing][:contact_email]
+    comments = params[:job_sharing][:comments]
+    @job_offer.comments = comments
+    @job_sharing = JobSharing.create_for(contact_email, comments, @job_offer)
+    @job_sharing.process
+    flash[:success] = 'Offer information sent.'
     redirect '/job_offers'
   end
 

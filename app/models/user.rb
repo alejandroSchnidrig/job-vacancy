@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class User
   include DataMapper::Resource
 
@@ -26,5 +28,13 @@ class User
   def has_password?(password)
     ::BCrypt::Password.new(crypted_password) == password
   end
+
+  def getGravatarImgAddress
+    # return 'https://www.gravatar.com/avatar/' # + Digest::MD5.hexdigest(user.email) 
+    # return 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740'
+    # return email
+    return 'https://www.gravatar.com/avatar/'  + Digest::MD5.hexdigest(email) 
+  end
+
 
 end
