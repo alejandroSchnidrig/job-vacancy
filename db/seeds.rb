@@ -1,4 +1,4 @@
 
-user = User.create(:email => 'nicopaez@gmail.com',
+user = User.create(:email => 'offerer@test.com',
 									 :name => 'Offerer', 
-									 :password => "n") unless User.all.count > 0
+									 :password => "Passw0rd!") unless User.all.count > 0
