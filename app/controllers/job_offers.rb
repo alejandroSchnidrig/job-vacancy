@@ -67,9 +67,15 @@ JobVacancy::App.controllers :job_offers do
     comments = params[:job_sharing][:comments]
     @job_offer.comments = comments
     @job_sharing = JobSharing.create_for(contact_email, comments, @job_offer)
-    @job_sharing.process
-    flash[:success] = 'Offer information sent.'
-    redirect '/job_offers'
+    valid_email = @job_sharing.valid_email?(contact_email) 
+    if valid_email
+      @job_sharing.process
+      flash[:success] = 'Offer information sent.'
+      redirect '/job_offers'
+    else
+      flash.now[:error] = 'Invalid email direction'
+      render '/job_offers/share'
+    end  
   end
 
   post :create do
