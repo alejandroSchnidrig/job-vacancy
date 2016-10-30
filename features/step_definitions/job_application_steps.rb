@@ -1,7 +1,8 @@
 Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
+  JobOffer.all.destroy
   @job_offer = JobOffer.new
   @job_offer.owner = User.first
-  @job_offer.title = job_title
+  @job_offer.title = job_title 
   @job_offer.location = 'a nice job'
   @job_offer.description = 'a nice job'
   @job_offer.save
@@ -18,5 +19,6 @@ When(/^I apply$/) do
 end
 
 Then(/^I should receive a mail with offerer info$/) do
-  page.should have_content('Contact information sent.')
+  page.should have_content('Contact information sent')
 end
+

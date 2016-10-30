@@ -1,12 +1,3 @@
-Given(/^that exist a job offer$/) do
-  @job_offer = JobOffer.new
-  @job_offer.owner = User.first
-  @job_offer.title = 'Chef'
-  @job_offer.location = 'Caseros'
-  @job_offer.description = 'Excellent pay'
-  @job_offer.save
-end
-
 When(/^I share the offer$/) do
   click_link 'Share'
   @job_sharing_comments = 'user comments'
@@ -16,5 +7,5 @@ When(/^I share the offer$/) do
 end
 
 Then(/^the person should receive a mail with the offer info$/) do
-  page.should have_content('Offer information sent.')
+  page.should have_content('Offer information sent')
 end

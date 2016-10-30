@@ -53,7 +53,7 @@ JobVacancy::App.controllers :job_offers do
     valid_email = @job_application.valid_email?(applicant_email) 
     if valid_email
       @job_application.process
-      flash[:success] = 'Contact information sent.'
+      flash[:success] = 'Contact information sent'
       redirect '/job_offers'
     else
       flash.now[:error] = 'Invalid email direction'
@@ -70,7 +70,7 @@ JobVacancy::App.controllers :job_offers do
     valid_email = @job_sharing.valid_email?(contact_email) 
     if valid_email
       @job_sharing.process
-      flash[:success] = 'Offer information sent.'
+      flash[:success] = 'Offer information sent'
       redirect '/job_offers'
     else
       flash.now[:error] = 'Invalid email direction'
