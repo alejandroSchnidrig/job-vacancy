@@ -41,4 +41,32 @@ describe JobApplication do
 
 	end
 
+	describe 'email_validation' do
+
+	  it 'should be an invalid email missing @' do
+	  	email = 'applicanttest.com'
+	  	ja = JobApplication.create_for(email, JobOffer.new)
+	  	expect(ja.valid_email?(email)).to be false
+	  end
+
+	  it 'should be an valid email' do
+	  	email = 'applicant@test.com'
+	  	ja = JobApplication.create_for(email, JobOffer.new)
+	  	expect(ja.valid_email?(email)).to be true
+	  end
+
+	  it 'should be an invalid email missing .com' do
+	  	email = 'applican@test'
+	  	ja = JobApplication.create_for(email, JobOffer.new)
+	  	expect(ja.valid_email?(email)).to be false
+	  end
+
+	  it 'should be an invalid email missing @ and .com' do
+	  	email = 'nnn'
+	  	ja = JobApplication.create_for(email, JobOffer.new)
+	  	expect(ja.valid_email?(email)).to be false
+	  end
+
+    end 
+
 end

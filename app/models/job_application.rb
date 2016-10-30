@@ -12,6 +12,10 @@ class JobApplication
 
 	def process
     JobVacancy::App.deliver(:notification, :contact_info_email, self)
-  end
+    end
+
+    def valid_email?(email)
+    	return (email.include?"@") && (email.include?".com")
+    end	
 
 end
