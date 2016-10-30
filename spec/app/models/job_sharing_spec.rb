@@ -42,4 +42,36 @@ describe JobSharing do
 
 	end
 
+	describe 'email_validation' do
+
+	  it 'should be an invalid email missing @' do
+	  	email = 'applicanttest.com'
+	  	comments = 'hola'
+	  	js = JobSharing.create_for(email, comments, JobOffer.new)
+	  	expect(js.valid_email?(email)).to be false
+	  end
+
+	  it 'should be an valid email' do
+	  	email = 'applicant@test.com'
+	  	comments = 'hola'
+	  	js = JobSharing.create_for(email, comments, JobOffer.new)
+	  	expect(js.valid_email?(email)).to be true
+	  end
+
+	  it 'should be an invalid email missing .com' do
+	  	email = 'applican@test'
+	  	comments = 'hola'
+	  	js = JobSharing.create_for(email, comments, JobOffer.new)
+	  	expect(js.valid_email?(email)).to be false
+	  end
+
+	  it 'should be an invalid email missing @ and .com' do
+	  	email = 'nnn'
+	  	comments = 'hola'
+	  	js = JobSharing.create_for(email, comments, JobOffer.new)
+	  	expect(js.valid_email?(email)).to be false
+	  end
+
+    end 
+
 end	

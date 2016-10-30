@@ -14,6 +14,10 @@ class JobSharing
 
 	def process
     JobVacancy::App.deliver(:notification, :sharing_email, self)
-  end
+    end
+
+    def valid_email?(email)
+    	return (email.include?"@") && (email.include?".com")
+    end	
 
 end
