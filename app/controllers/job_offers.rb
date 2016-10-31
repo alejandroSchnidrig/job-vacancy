@@ -41,8 +41,22 @@ JobVacancy::App.controllers :job_offers do
   end
 
   post :search do
-    @offers = JobOffer.all(:title.like => "%#{params[:q]}%")
-    render 'job_offers/list'
+    field = params[:q]
+    new_field = field.partition(" ").last
+    if field.include?":location"
+      @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
+      render 'job_offers/list' 
+    elsif field.include?":description"
+      @offers = JobOffer.all(:description.like => "%"+new_field+"%")
+      render 'job_offers/list'
+    elsif field.include?":title"
+      @offers = JobOffer.all(:title.like => "%"+new_field+"%")
+      render 'job_offers/list'
+    else 
+      @offers = JobOffer.all(:title.like => "%"+field+"%")
+      render 'job_offers/list'
+    end 
+
   end
 
 

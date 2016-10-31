@@ -1,5 +1,5 @@
 When(/^I do an specific search for title field$/) do
-  pending 
+  pending
 end
 
 Then(/^i can see the offer by its title$/) do
