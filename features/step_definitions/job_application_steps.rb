@@ -9,7 +9,7 @@ Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
 end
 
 Given(/^I access the offers list page$/) do
-  visit '/job_offers'
+  visit '/job_offers/latest'
 end
 
 When(/^I apply$/) do
