@@ -42,20 +42,25 @@ JobVacancy::App.controllers :job_offers do
 
   post :search do
     field = params[:q]
-    new_field = field.partition(" ").last
-    if field.include?":location"
-      @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
-      render 'job_offers/list' 
-    elsif field.include?":description"
-      @offers = JobOffer.all(:description.like => "%"+new_field+"%")
-      render 'job_offers/list'
-    elsif field.include?":title"
-      @offers = JobOffer.all(:title.like => "%"+new_field+"%")
-      render 'job_offers/list'
-    else 
+    new_field = field.partition(": ").last
+    if field.include?":"
+      if field.include?"location:"
+        @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
+        render 'job_offers/list' 
+      elsif field.include?"description:"
+        @offers = JobOffer.all(:description.like => "%"+new_field+"%")
+        render 'job_offers/list'
+      elsif field.include?"title:"
+        @offers = JobOffer.all(:title.like => "%"+new_field+"%")
+        render 'job_offers/list'
+      else
+        flash[:error] = 'Invalid search filed'
+        redirect 'job_offers/latest'
+      end  
+    else
       @offers = JobOffer.all(:title.like => "%"+field+"%")
-      render 'job_offers/list'
-    end 
+      render 'job_offers/list'  
+    end
 
   end
 

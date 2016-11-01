@@ -15,7 +15,7 @@ class JobApplication
     end
 
     def valid_email?(email)
-    	return (email.include?"@") && (email.include?".com")
+    	return (email.include?"@") && ((email.include?".com") | (email.include?".org") | (email.include?".net"))
     end	
 
 end
