@@ -49,10 +49,15 @@ JobVacancy::App.controllers :job_offers do
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])    
     applicant_email = params[:job_application][:applicant_email]
-    @job_application = JobApplication.create_for(applicant_email, @job_offer)
+    @job_offer.apply_email = applicant_email
+    link_cv = params[:job_application][:link_cv]
+    @job_offer.link_cv = link_cv
+    @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
+    @job_application.offerer_email = @job_offer.owner.email
     valid_email = @job_application.valid_email?(applicant_email) 
     if valid_email
-      @job_application.process
+      @job_application.process_to_applicant
+      @job_application.process_to_offerer
       flash[:success] = 'Contact information sent'
       redirect '/job_offers'
     else
