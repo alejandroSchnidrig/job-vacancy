@@ -8,6 +8,8 @@ describe JobApplication do
 
 		it { should respond_to( :applicant_email ) }
 		it { should respond_to( :job_offer) }
+                it { should respond_to( :offerer_email ) }
+		it { should respond_to( :link_cv) }
 
 	end
 
@@ -16,54 +18,72 @@ describe JobApplication do
 
 	  it 'should set applicant_email' do
 	  	email = 'applicant@test.com'
-	  	ja = JobApplication.create_for(email, JobOffer.new)
+                link = 'the_cv'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
 	  	ja.applicant_email.should eq email
+                ja.link_cv.should eq link
 	  end
 
 	  it 'should set job_offer' do
 	  	offer = JobOffer.new
-	  	ja = JobApplication.create_for('applicant@test.com', offer)
+	  	ja = JobApplication.create_for('applicant@test.com', 'the _cv', offer)
 	  	ja.job_offer.should eq offer
 	  end
 
 	end
 
 
-	describe 'process' do
+	describe 'process_to_applicant' do
 
 	  let(:job_application) { JobApplication.new }
 
 	  it 'should deliver contact info notification' do
-	  	ja = JobApplication.create_for('applicant@test.com', JobOffer.new)
+	  	ja = JobApplication.create_for('applicant@test.com', 'the_cv', JobOffer.new)
 	  	JobVacancy::App.should_receive(:deliver).with(:notification, :contact_info_email, ja)
-	  	ja.process
+	  	ja.process_to_applicant
 	  end
 
-	end
+        end
+
+       describe 'process_to_offerer' do
+
+	  let(:job_application) { JobApplication.new }
+
+	  it 'should deliver offerer info notification' do
+	  	ja = JobApplication.create_for('applicant@test.com', 'the_cv', JobOffer.new)
+	  	JobVacancy::App.should_receive(:deliver).with(:notification, :offerer_info_email, ja)
+	  	ja.process_to_offerer
+	  end
+
+        end
 
 	describe 'email_validation' do
 
 	  it 'should be an invalid email missing @' do
 	  	email = 'applicanttest.com'
-	  	ja = JobApplication.create_for(email, JobOffer.new)
+                link = 'cv'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
 	  	expect(ja.valid_email?(email)).to be false
 	  end
 
 	  it 'should be an valid email' do
 	  	email = 'applicant@test.com'
-	  	ja = JobApplication.create_for(email, JobOffer.new)
+                link = 'cv'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
 	  	expect(ja.valid_email?(email)).to be true
 	  end
 
 	  it 'should be an invalid email missing .com' do
 	  	email = 'applican@test'
-	  	ja = JobApplication.create_for(email, JobOffer.new)
+                link = 'cv'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
 	  	expect(ja.valid_email?(email)).to be false
 	  end
 
 	  it 'should be an invalid email missing @ and .com' do
 	  	email = 'nnn'
-	  	ja = JobApplication.create_for(email, JobOffer.new)
+                link = 'cv'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
 	  	expect(ja.valid_email?(email)).to be false
 	  end
 
