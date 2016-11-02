@@ -40,10 +40,11 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/share'
   end
 
+  # Warning: this code need refactoring
   post :search do
-    field = params[:q]
-    new_field = field.partition(": ").last
-    if field.include?":"
+    field = params[:q].strip
+    new_field = field.partition(":").last.strip
+    if field.include?":" 
       if field.include?"location:"
         @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
         render 'job_offers/list' 
