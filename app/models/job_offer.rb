@@ -7,7 +7,7 @@ class JobOffer
 	property :location, String
 	property :description, String
 	property :comments, String
-        property :link_cv, String
+        property :cv_link, String
         property :apply_email, String
         property :created_on, Date
         property :updated_on, Date
