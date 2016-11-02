@@ -4,12 +4,12 @@ Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
   @job_offer.owner = User.first
   @job_offer.title = job_title 
   @job_offer.location = 'a nice job'
-  @job_offer.description = 'a nice job'
+  @job_offer.description = 'good pay'
   @job_offer.save
 end
 
 Given(/^I access the offers list page$/) do
-  visit '/job_offers'
+  visit '/job_offers/latest'
 end
 
 When(/^I apply$/) do

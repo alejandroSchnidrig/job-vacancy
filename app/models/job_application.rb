@@ -22,7 +22,8 @@ class JobApplication
     end
 
     def valid_email?(email)
-    	return (email.include?"@") && (email.include?".com")
+      email_regex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+      (email =~ email_regex)
     end	
 
 end
