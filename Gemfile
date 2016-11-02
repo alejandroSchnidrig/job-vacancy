@@ -34,6 +34,7 @@ gem 'json'
 gem 'clockwork'
 gem 'twitter'
 gem 'digest'
+gem 'strong_password', '~> 0.0.5'
 
 # Test requirements
 group :staging, :production do

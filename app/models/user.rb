@@ -1,7 +1,12 @@
 require 'digest/md5'
+require 'strong_password'
 
 class User
   include DataMapper::Resource
+  #include ActiveModel::Validations
+
+  # Basic usage.  Defaults to minimum entropy of 18 and no dictionary checking
+  #validates :password, password_strength: true
 
   property :id, Serial
   property :name, String
@@ -27,6 +32,11 @@ class User
 
   def has_password?(password)
     ::BCrypt::Password.new(crypted_password) == password
+  end
+
+  def verify_password_is_strong(password)
+      checker = StrongPassword::StrengthChecker.new(password)
+      checker.is_strong?(min_entropy: 10)
   end
 
   def getGravatarImgAddress

@@ -10,7 +10,7 @@ describe User do
 		it { should respond_to( :name ) }
 		it { should respond_to( :crypted_password) }
 		it { should respond_to( :email ) }
-                it { should respond_to( :company ) }
+        it { should respond_to( :company ) }
 		it { should respond_to( :job_offers ) }
 
 	end
@@ -89,6 +89,14 @@ describe User do
 		    # esperado = 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740' 
 		    #esperado = 'nicopaez@gmail.com'
 		    expect(@user.getGravatarImgAddress).to eq(esperado)
+		end
+
+		it 'deberia obtener weak password' do
+		    expect(@user.verify_password_is_strong('123')).to eq false
+		end
+
+		it 'deberia obtener strong password' do
+		    expect(@user.verify_password_is_strong('12sdf!33ddFFe+++')).to eq true
 		end
 
 	end

@@ -28,7 +28,12 @@ JobVacancy::App.controllers :users do
       password_confirmation = params[:user][:password_confirmation]
       params[:user].reject!{|k,v| k == 'password_confirmation'}
       if (params[:user][:password] == password_confirmation)
+ 
         @user = User.new(params[:user])
+        unless @user.verify_password_is_strong(password_confirmation)
+         flash.now[:error] = 'weak password entered'
+         render 'users/new'
+        end
         if @user.save
           flash[:success] = 'User created'
           redirect '/'
