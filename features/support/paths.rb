@@ -13,9 +13,12 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
- when /i can see my gravatar at the top page/
-      '/'
+    when /the registration page/
+      '/register'
       
+     when /i can see my gravatar at the top page/
+          '/'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
