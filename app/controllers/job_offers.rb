@@ -40,9 +40,29 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/share'
   end
 
+  # Warning: this code need refactoring
   post :search do
-    @offers = JobOffer.all(:title.like => "%#{params[:q]}%")
-    render 'job_offers/list'
+    field = params[:q].strip
+    new_field = field.partition(":").last.strip
+    if field.include?":" 
+      if field.include?"location:"
+        @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
+        render 'job_offers/list' 
+      elsif field.include?"description:"
+        @offers = JobOffer.all(:description.like => "%"+new_field+"%")
+        render 'job_offers/list'
+      elsif field.include?"title:"
+        @offers = JobOffer.all(:title.like => "%"+new_field+"%")
+        render 'job_offers/list'
+      else
+        flash[:error] = 'Invalid search filed'
+        redirect 'job_offers/latest'
+      end  
+    else
+      @offers = JobOffer.all(:title.like => "%"+field+"%")
+      render 'job_offers/list'  
+    end
+
   end
 
 
