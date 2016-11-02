@@ -42,7 +42,7 @@ JobVacancy::App.controllers :job_offers do
 
   # Warning: this code need refactoring
   post :search do
-    field = params[:q].strip
+    field = params[:q].strip.downcase
     new_field = field.partition(":").last.strip
     if field.include?":" 
       if field.include?"location:"
