@@ -1,7 +1,12 @@
 require 'digest/md5'
+require 'strong_password'
 
 class User
   include DataMapper::Resource
+  #include ActiveModel::Validations
+
+  # Basic usage.  Defaults to minimum entropy of 18 and no dictionary checking
+  #validates :password, password_strength: true
 
   property :id, Serial
   property :name, String
@@ -29,11 +34,16 @@ class User
     ::BCrypt::Password.new(crypted_password) == password
   end
 
+  def verify_password_is_strong(password)
+      checker = StrongPassword::StrengthChecker.new(password)
+      checker.is_strong?(min_entropy: 16)
+  end
+
   def getGravatarImgAddress
     # return 'https://www.gravatar.com/avatar/' # + Digest::MD5.hexdigest(user.email) 
     # return 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740'
     # return email
-    return 'https://www.gravatar.com/avatar/'  + Digest::MD5.hexdigest(email) 
+    return 'https://www.gravatar.com/avatar/'  + Digest::MD5.hexdigest(email) + '?s=30'
   end
 
 

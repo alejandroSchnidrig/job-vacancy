@@ -27,17 +27,21 @@ JobVacancy::App.controllers :users do
   post :create do
       password_confirmation = params[:user][:password_confirmation]
       params[:user].reject!{|k,v| k == 'password_confirmation'}
+      @user = User.new(params[:user])
       if (params[:user][:password] == password_confirmation)
-        @user = User.new(params[:user])
-        if @user.save
-          flash[:success] = 'User created'
-          redirect '/'
+        unless @user.verify_password_is_strong(password_confirmation)
+           flash.now[:error] = 'weak password entered'
+           render 'users/new'
         else
-          flash.now[:error] = 'All fields are mandatory'
-          render 'users/new'
+            if @user.save
+              flash[:success] = 'User created'
+              redirect '/'
+            else
+              flash.now[:error] = 'All fields are mandatory'
+              render 'users/new'
+            end
         end
       else
-        @user = User.new (params[:user])
         flash.now[:error] = 'Passwords do not match'
         render 'users/new'          
       end

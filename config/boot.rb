@@ -6,6 +6,7 @@ PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
 require 'digest/md5'
+require 'strong_password'
 Bundler.require(:default, PADRINO_ENV)
 
 ##
