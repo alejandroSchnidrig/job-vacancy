@@ -25,9 +25,9 @@ Then(/^i will be registered$/) do
 end
 
 When(/^I complete the password field with a weak one$/) do
-  @user_password = '123'
-  fill_in('user[password]', :with => '@user_password')
-  fill_in('user[password_confirmation]', :with => '@user_password')
+  @user_password2 = '123'
+  fill_in('user[password]', :with => '@user_password2')
+  fill_in('user[password_confirmation]', :with => '@user_password2')
 end
 
 Then(/^i can see the weak password entered legend$/) do
