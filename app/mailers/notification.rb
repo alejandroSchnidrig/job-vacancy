@@ -50,6 +50,15 @@ JobVacancy::App.mailer :notification do
     render 'notification/contant_info_email'
   end
 
+  email :offerer_info_email do | job_application |
+    from 'n2.jobvacancy@gmail.com'
+    to job_application.offerer_email
+    subject 'Job Application: Applicant information'
+    locals :job_offer => job_application.job_offer
+    content_type :plain
+    render 'notification/offerer_info_email'
+  end
+
   email :sharing_email do | job_sharing |
     from 'n2.jobvacancy@gmail.com'
     to job_sharing.contact_email
