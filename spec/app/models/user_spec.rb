@@ -85,7 +85,7 @@ describe User do
 
 		it 'deberia obtener img completo' do
 
-		      esperado = 'https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c'
+		      esperado = 'https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c?s=30'
 		    # esperado = 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740' 
 		    #esperado = 'nicopaez@gmail.com'
 		    expect(@user.getGravatarImgAddress).to eq(esperado)
