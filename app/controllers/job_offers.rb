@@ -71,7 +71,7 @@ JobVacancy::App.controllers :job_offers do
     applicant_email = params[:job_application][:applicant_email]
     @job_offer.apply_email = applicant_email
     link_cv = params[:job_application][:link_cv]
-    @job_offer.link_cv = link_cv
+    @job_offer.cv_link = link_cv
     @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
     @job_application.offerer_email = @job_offer.owner.email
     valid_email = @job_application.valid_email?(applicant_email) 
