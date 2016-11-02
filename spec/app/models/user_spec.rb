@@ -91,12 +91,24 @@ describe User do
 		    expect(@user.getGravatarImgAddress).to eq(esperado)
 		end
 
-		it 'deberia obtener weak password' do
+		it 'deberia obtener weak password 123' do
 		    expect(@user.verify_password_is_strong('123')).to eq false
 		end
 
-		it 'deberia obtener strong password' do
+		it 'deberia obtener strong password largo' do
 		    expect(@user.verify_password_is_strong('12sdf!33ddFFe+++')).to eq true
+		end
+
+		it 'deberia obtener strong password guatemalA1' do
+		    expect(@user.verify_password_is_strong('guatemalA1')).to eq true
+		end
+
+		it 'deberia obtener strong password GuatemA12' do
+		    expect(@user.verify_password_is_strong('GuatemA12')).to eq true
+		end
+
+		it 'deberia obtener weak password guatemal' do
+		    expect(@user.verify_password_is_strong('guatemal')).to eq false
 		end
 
 	end

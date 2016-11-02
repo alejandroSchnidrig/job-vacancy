@@ -36,7 +36,7 @@ class User
 
   def verify_password_is_strong(password)
       checker = StrongPassword::StrengthChecker.new(password)
-      checker.is_strong?(min_entropy: 10)
+      checker.is_strong?(min_entropy: 16)
   end
 
   def getGravatarImgAddress
