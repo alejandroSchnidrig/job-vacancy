@@ -10,7 +10,7 @@ describe User do
 		it { should respond_to( :name ) }
 		it { should respond_to( :crypted_password) }
 		it { should respond_to( :email ) }
-                it { should respond_to( :company ) }
+        it { should respond_to( :company ) }
 		it { should respond_to( :job_offers ) }
 
 	end
@@ -85,10 +85,30 @@ describe User do
 
 		it 'deberia obtener img completo' do
 
-		      esperado = 'https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c'
+		      esperado = 'https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c?s=30'
 		    # esperado = 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740' 
 		    #esperado = 'nicopaez@gmail.com'
 		    expect(@user.getGravatarImgAddress).to eq(esperado)
+		end
+
+		it 'deberia obtener weak password 123' do
+		    expect(@user.verify_password_is_strong('123')).to eq false
+		end
+
+		it 'deberia obtener strong password largo' do
+		    expect(@user.verify_password_is_strong('12sdf!33ddFFe+++')).to eq true
+		end
+
+		it 'deberia obtener strong password guatemalA1' do
+		    expect(@user.verify_password_is_strong('guatemalA1')).to eq true
+		end
+
+		it 'deberia obtener strong password GuatemA12' do
+		    expect(@user.verify_password_is_strong('GuatemA12')).to eq true
+		end
+
+		it 'deberia obtener weak password guatemal' do
+		    expect(@user.verify_password_is_strong('guatemal')).to eq false
 		end
 
 	end

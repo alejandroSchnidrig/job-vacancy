@@ -7,9 +7,11 @@ class JobOffer
 	property :location, String
 	property :description, String
 	property :comments, String
-    property :created_on, Date
-    property :updated_on, Date
-    property :is_active, Boolean, :default => true
+        property :cv_link, String
+        property :apply_email, String
+        property :created_on, Date
+        property :updated_on, Date
+        property :is_active, Boolean, :default => true
 	belongs_to :user
 
 	validates_presence_of :title

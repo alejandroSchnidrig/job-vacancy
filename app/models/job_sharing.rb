@@ -14,6 +14,11 @@ class JobSharing
 
 	def process
     JobVacancy::App.deliver(:notification, :sharing_email, self)
-  end
+    end
+
+    def valid_email?(email)
+      email_regex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+      (email =~ email_regex)
+    end	
 
 end

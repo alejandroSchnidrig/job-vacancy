@@ -3,10 +3,8 @@ Feature: Share a Job offer
   As a user
   I want to share an offer to a person
 
-
   Background:
-    Given that exist a job offer
-
+    Given only a "Web Programmer" offer exists in the offers list
 
   Scenario: Share a job offer
     Given I access the offers list page

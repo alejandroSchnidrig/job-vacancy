@@ -14,10 +14,10 @@
       	<h1>Job Vacancy Board</h1>
       	</div>
       	<div class="profile"> 
-						<% if signed_in? %>
-            <%= image_tag(current_user.getGravatarImgAddress, :alt => "imagen no encontrada!") %>
-							<%= current_user.email %>
-						<% end %>
+			<% if signed_in? %>
+				<%= current_user.email %>
+            			<%= image_tag(current_user.getGravatarImgAddress, :alt => "imagen no encontrada!", :class=> "img-circular") %> 
+			<% end %>
 				</div>
 				</div>
         <div class="navbar">
