@@ -1,5 +1,16 @@
 Given(/^that i am a user$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/register'
+  @user = User.new
+  @name = 'juan perez'
+  @email = 'juan.perez@gmail.com'
+  @password ='juanperez2016'
+  @company = 'Untref'
+  fill_in('user[name]', :with => '@name')
+  fill_in('user[email]', :with => '@email')
+  fill_in('user[password]', :with => '@password')
+  fill_in('user[password_confirmation]', :with => '@password') 
+  fill_in('user[company]', :with => '@company') 
+  click_button('Create')
 end
 
 Given(/^I access the login page$/) do
