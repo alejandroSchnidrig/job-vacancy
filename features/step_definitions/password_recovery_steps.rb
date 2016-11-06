@@ -14,7 +14,7 @@ Given(/^that i am a user$/) do
 end
 
 Given(/^I access the login page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/login'
 end
 
 When(/^I click on the recovery password button$/) do
