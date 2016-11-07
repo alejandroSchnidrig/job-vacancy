@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PasswordRecovery do
+describe PasswordGenerator do
 
 	describe 'model' do
 
@@ -12,8 +12,8 @@ describe PasswordRecovery do
 
 	  it 'should set user_email' do
 	  	email = 'contact@test.com'
-	  	pr = PasswordRecovery.create_for(email)
-	  	pr.user_email.should eq email
+	  	pg = PasswordGenerator.create_for(email)
+	  	pg.user_email.should eq email
 	  end
 
 	end

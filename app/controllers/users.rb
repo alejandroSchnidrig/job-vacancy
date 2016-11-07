@@ -47,4 +47,9 @@ JobVacancy::App.controllers :users do
       end
   end
 
+  get :password_generator do
+    @password_generator = PasswordGenerator.new
+    render 'users/password_generator'
+  end
+
 end
