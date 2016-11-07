@@ -18,11 +18,11 @@ Given(/^I access the login page$/) do
 end
 
 When(/^I click on the recovery password button$/) do
-  pending # express the regexp above with the code you wish you had
+  click_link('I forgot my password')
 end
 
 When(/^I access to the password recovery page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/users/password_generator'
 end
 
 When(/^I put my email address$/) do
