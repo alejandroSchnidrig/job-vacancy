@@ -5,9 +5,8 @@
 		<title>Job Vacancy Board - Message</title>
 		</head>
 	<body>
-
 Job Vacancy Board<br>
-=================<br>
+=================
 <br>
 An applicant have applied to your job offer:<br>
 <br>
@@ -20,11 +19,10 @@ You can contact the applicant to this offer by writing to <%= job_offer.apply_em
 <div>
 Gravatar's profile image from applicant: 
 <!-- https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c -->
-<img src="<%= job_offer.cv_link %>" alt = "imagen no encontrada!" 
+<img src="<%= offerer %>" alt = "imagen no encontrada!" > 
+<!--<%= offerer %> -->
 </div>
 <br>
 You can see now the applicant CV following this link: <%= job_offer.cv_link %>
-
-
-		</body>
+</body>
 </html> 
