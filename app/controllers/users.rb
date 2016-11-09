@@ -53,22 +53,21 @@ JobVacancy::App.controllers :users do
     render 'users/password_generator'
   end
 
-  post :send do  
+   post :send do  
     user_email = params[:password_generator][:user_email]
     @user = User.first(:email => user_email)
+    if @user == nil
+      flash[:error] = 'User not exist'
+      redirect '/login'
+    else  
     @new_password = @user.new_password
     @user.password= (@new_password)
     @user.save
     @password_generator = PasswordGenerator.create_for(user_email, @new_password)
-    valid_email = @password_generator.valid_email?(user_email) 
-    if valid_email
-      @password_generator.process
-      flash[:success] = 'New password sent'
-      redirect '/'
-    else
-      flash.now[:error] = 'Invalid email direction'
-      render '/'
-    end  
+    @password_generator.process
+    flash[:success] = 'New password sent'
+    redirect '/login'
+    end
   end
 
 end
