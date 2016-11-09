@@ -6,6 +6,25 @@
 		</head>
 	<body>
 
-Job Vacancy Board123<br>
+Job Vacancy Board<br>
+=================<br>
+<br>
+An applicant have applied to your job offer:<br>
+<br>
+* Title: <%= job_offer.title %><br>
+* Location: <%= job_offer.location %><br>
+* Description: <%= job_offer.description %><br>
+<br>
+You can contact the applicant to this offer by writing to <%= job_offer.apply_email %> <br>
+<br>
+<div>
+Gravatar's profile image from applicant: 
+<!-- https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c -->
+<img src="<%= job_offer.cv_link %>" alt = "imagen no encontrada!" 
+</div>
+<br>
+You can see now the applicant CV following this link: <%= job_offer.cv_link %>
+
+
 		</body>
 </html> 
