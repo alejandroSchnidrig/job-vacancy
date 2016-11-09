@@ -55,7 +55,7 @@ JobVacancy::App.mailer :notification do
     to job_application.offerer_email
     subject 'Job Application: Applicant information'
     locals :job_offer => job_application.job_offer ,
-           :offerer =>  job_application.getGravatarImgAddressFromOfferer
+           :applicant =>  job_application.getGravatarImgAddressFromOfferer
     content_type :html
     render 'notification/offerer_info_email'
   end

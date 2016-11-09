@@ -42,7 +42,6 @@ class User
   def getGravatarImgAddress
     # return 'https://www.gravatar.com/avatar/' # + Digest::MD5.hexdigest(user.email) 
     # return 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740'
-    # return email
     return 'https://www.gravatar.com/avatar/'  + Digest::MD5.hexdigest(email) + '?s=30'
   end
 

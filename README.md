@@ -9,6 +9,8 @@ Once you have clone this repository, follow these steps to start working:
 * Run **_bundle exec rake_**, to run all tests and ensure everything is properly setup
 * Run **_bundle exec padrino start_ -h 0.0.0.0**, to start the application
 
+* Run "padrino rake" when the web display "internal server error" (because db migration has not run yet)
+
 Some conventions to work on it:
 
 * Follow existing coding conventions
