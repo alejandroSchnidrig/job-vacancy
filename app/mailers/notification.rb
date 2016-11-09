@@ -72,7 +72,7 @@ JobVacancy::App.mailer :notification do
     from 'n2.jobvacancy@gmail.com'
     to password_generator.user_email
     subject 'New password: we generate this password for your user'
-    locals :user_email => password_generator
+    locals :new_password => password_generator.new_password
     content_type :plain
     render 'notification/password_email'
   end

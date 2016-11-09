@@ -25,8 +25,14 @@ class User
   end
 
   def generate_password 
-    new_password = Random.new.bytes(6)
+    new_password = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
   end
+
+  def apply_password
+    new_password = self.generate_password
+    self.crypted_password = ::BCrypt::Password.create(new_password) unless new_password.nil?  
+    return new_password
+  end 
 
   def self.authenticate(email, password)
     user = User.find_by_email(email)
