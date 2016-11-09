@@ -5,7 +5,7 @@ Feature: specify search field
 
 
   Background:
-    Given only a "Web Programmer" offer exists in the offers list
+    Given that three job offers exist
 
 
   Scenario: specify search field by title field

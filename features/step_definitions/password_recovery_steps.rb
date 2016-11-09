@@ -33,3 +33,12 @@ end
 Then(/^i can see an email with new password$/) do
   page.should have_content('New password sent')
 end
+
+When(/^I put an invalid email address$/) do
+  fill_in('password_generator[user_email]', :with =>'juan.perezzzzz@gmail.com')
+  click_button('Generate')
+end
+
+Then(/^i can see the error messeage$/) do
+  page.should have_content('User not exist')
+end
