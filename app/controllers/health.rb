@@ -21,7 +21,7 @@ JobVacancy::App.controllers :health do
     user = User.create(:email => 'offerer@test.com',
                    :name => 'Offerer', 
                    :password => "Passw0rd!",
-		   :company => 'the_company')
+		               :company => 'the_company')
     JobOffer.create(:title => 'Java programmer',
                     :user => user,
                     :description => 'Spring experience required',
