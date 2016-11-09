@@ -56,7 +56,9 @@ JobVacancy::App.controllers :users do
   post :send do  
     user_email = params[:password_generator][:user_email]
     @user = User.first(:email => user_email)
-    @new_password = @user.apply_password
+    @new_password = @user.new_password
+    @user.password= (@new_password)
+    @user.save
     @password_generator = PasswordGenerator.create_for(user_email, @new_password)
     valid_email = @password_generator.valid_email?(user_email) 
     if valid_email

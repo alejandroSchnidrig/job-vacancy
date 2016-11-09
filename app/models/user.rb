@@ -28,10 +28,8 @@ class User
     new_password = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
   end
 
-  def apply_password
+  def new_password
     new_password = self.generate_password
-    self.crypted_password = ::BCrypt::Password.create(new_password) unless new_password.nil?  
-    return new_password
   end 
 
   def self.authenticate(email, password)
