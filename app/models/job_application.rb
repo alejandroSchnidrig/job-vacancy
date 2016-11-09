@@ -26,4 +26,8 @@ class JobApplication
       (email =~ email_regex)
     end	
 
+    def valid_cv?(link)
+      link.start_with?("http://") || link.start_with?("https://")
+    end 
+
 end

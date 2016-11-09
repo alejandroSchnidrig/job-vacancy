@@ -23,5 +23,5 @@ end
 
 Then(/^I click apply button and see the legend CV link is mandatory$/) do
   click_button('Apply')
-  #page.should have_content('CV link is mandatory')
+  page.should have_content('CV link is mandatory')
 end

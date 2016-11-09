@@ -65,7 +65,6 @@ JobVacancy::App.controllers :job_offers do
 
   end
 
-
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])    
     applicant_email = params[:job_application][:applicant_email]
@@ -74,16 +73,32 @@ JobVacancy::App.controllers :job_offers do
     @job_offer.cv_link = link_cv
     @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
     @job_application.offerer_email = @job_offer.owner.email
-    valid_email = @job_application.valid_email?(applicant_email) 
-    if valid_email
-      @job_application.process_to_applicant
-      @job_application.process_to_offerer
-      flash[:success] = 'Contact information sent'
-      redirect '/job_offers'
+    valid_cv = @job_application.valid_cv?(link_cv) 
+    # if (valid_cv == true) 
+    #   qqq = 'true'
+    # else
+    #   qqq = 'false' 
+    # end
+
+    # if qqq == 'false'
+    #   flash.now[:error] = 'CV link is mandatory'
+    #   render '/job_offers/apply'
+    # end 
+    unless  valid_cv
+      flash.now[:error] = 'CV link is mandatory'
+       render '/job_offers/apply'
     else
-      flash.now[:error] = 'Invalid email direction'
-      render '/job_offers/apply'
-    end  
+        valid_email = @job_application.valid_email?(applicant_email) 
+        if valid_email
+          @job_application.process_to_applicant
+          @job_application.process_to_offerer
+          flash[:success] = 'Contact information sent'# + link_cv + ' ' + qqq
+          redirect '/job_offers'
+        else
+          flash.now[:error] = 'Invalid email direction'
+          render '/job_offers/apply'
+        end  
+      end
   end
 
   post :send, :with => :offer_id do
