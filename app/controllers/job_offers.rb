@@ -103,7 +103,7 @@ JobVacancy::App.controllers :job_offers do
     end  
   end
 
-  get :findnear, :with => :offer_id do
+  get :find_near do
     @job_offer = JobOffer.get(params[:offer_id])
     location = @job_offer.location
     @offers = JobOffer.all(:location.like => "%"+location+"%") 
