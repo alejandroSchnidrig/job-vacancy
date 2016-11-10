@@ -8,7 +8,7 @@ describe JobApplication do
 
 		it { should respond_to( :applicant_email ) }
 		it { should respond_to( :job_offer) }
-                it { should respond_to( :offerer_email ) }
+        it { should respond_to( :offerer_email ) }
 		it { should respond_to( :link_cv) }
 
 	end
@@ -56,4 +56,37 @@ describe JobApplication do
 	  end
 
         end
+
+
+	describe 'valid_cv?' do
+
+		  it 'not valid cv GuatemA12' do
+	  	email = 'applicant@test.com'
+                link = 'GuatemA12'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
+                  expect(ja.valid_cv?(link)).to eq false
+	  end
+
+	  	  it 'valid cv https' do
+	  	email = 'applicant@test.com'
+                link = 'https://www.facebook.com/photo.php?fbid=10210983398364814&set=gm.10154330125603101&type=3&theater'
+	  	ja = JobApplication.create_for(email, link, JobOffer.new)
+                  expect(ja.valid_cv?(link)).to eq true
+	  end
+
+
+	 #  let(:job_offer) { 
+	 #  	JobOffer.new.cv 
+	 #  	 }
+
+		# it 'not valid cv GuatemA12' do
+		#     expect(@job_application.valid_cv?('GuatemA12').to eq false
+		# end
+
+		# it 'valid cv https' do
+		#     expect(@job_application.valid_cv?('https://www.facebook.com/photo.php?fbid=10210983398364814&set=gm.10154330125603101&type=3&theater').to eq true
+		# end
+	end
+	
+        
 end

@@ -18,6 +18,10 @@ module JobVacancy
       :domain          => "gmail.com", # the HELO domain provided by the client to the server
     }
 
+    # set :delivery_method, :file => {
+    #   :location => "#{Padrino.root}/tmp/emails",
+    # }
+
     ##
     # Caching support
     #

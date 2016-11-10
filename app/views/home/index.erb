@@ -1,6 +1,17 @@
 <div class="jumbotron">
   <h1>Job Vacancy Board</h1>
-  <p class="lead">Welcome! If you are looking for a job, just go to the <a href="<%= url(:job_offers, :latest) %>">offers list</a>. If you want to publish a job offer, just <a href="<%= url(:users, :new) %>">register</a> and start publishing.</p>
+
+  <p class="lead">Welcome! If you are looking for a job, just go to the 
+  <a href="<%= url(:job_offers, :latest) %>">offers list</a>.<br>
+  <% if signed_in? == false %> If you want to publish a job offer, just 
+  <a href="<%= url(:users, :new) %>">register</a> and start publishing.</p>
+  <% else %>You also can create your own offerts!</p> <% end %>
+
   <a class="btn btn-large btn-success" href="<%= url(:job_offers, :latest) %>" >Find a Job</a>
-  <a class="btn btn-large btn-success" href="<%= url(:users, :new) %>">Publish a Job</a>
+
+   <% if signed_in? == false %>
+  <a class="btn btn-large btn-success" href="<%= url(:users, :new) %>">Register to Publish</a>
+    <% else %>
+  <a class="btn btn-large btn-success"  href="<%= url(:job_offers, :new) %>">Publish a Job</a>
+  <% end %>
 </div>
