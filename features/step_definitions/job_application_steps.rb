@@ -15,6 +15,7 @@ end
 When(/^I apply$/) do
   click_link 'Apply'
   fill_in('job_application[applicant_email]', :with => 'applicant@test.com')
+  fill_in('job_application[link_cv]', :with => 'http:////lol')
   click_button('Apply')
 end
 

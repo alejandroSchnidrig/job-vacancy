@@ -46,7 +46,7 @@ JobVacancy::App.mailer :notification do
     to job_application.applicant_email
     subject 'Job Application: Contact information'
     locals :job_offer => job_application.job_offer
-    content_type :plain
+    content_type :html
     render 'notification/contant_info_email'
   end
 
@@ -54,8 +54,9 @@ JobVacancy::App.mailer :notification do
     from 'n2.jobvacancy@gmail.com'
     to job_application.offerer_email
     subject 'Job Application: Applicant information'
-    locals :job_offer => job_application.job_offer
-    content_type :plain
+    locals :job_offer => job_application.job_offer ,
+           :applicant =>  job_application.getGravatarImgAddressFromOfferer
+    content_type :html
     render 'notification/offerer_info_email'
   end
 
@@ -64,7 +65,7 @@ JobVacancy::App.mailer :notification do
     to job_sharing.contact_email
     subject 'Job Sharing: Offer information'
     locals :job_offer => job_sharing.job_offer
-    content_type :plain
+    content_type :html
     render 'notification/sharing_email'
   end
 
