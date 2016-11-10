@@ -118,6 +118,13 @@ JobVacancy::App.controllers :job_offers do
     end  
   end
 
+  get :find_near do
+    @job_offer = JobOffer.get(params[:offer_id])
+    location = @job_offer.location
+    @offers = JobOffer.all(:location.like => "%"+location+"%") 
+    render 'job_offers/list'
+  end
+
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
