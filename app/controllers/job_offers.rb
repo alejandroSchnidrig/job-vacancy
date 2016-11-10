@@ -74,16 +74,6 @@ JobVacancy::App.controllers :job_offers do
     @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
     @job_application.offerer_email = @job_offer.owner.email
     valid_cv = @job_application.valid_cv?(link_cv) 
-    # if (valid_cv == true) 
-    #   qqq = 'true'
-    # else
-    #   qqq = 'false' 
-    # end
-
-    # if qqq == 'false'
-    #   flash.now[:error] = 'CV link is mandatory'
-    #   render '/job_offers/apply'
-    # end 
     unless  valid_cv
       flash.now[:error] = 'CV link is mandatory'
        render '/job_offers/apply'

@@ -46,7 +46,7 @@ JobVacancy::App.mailer :notification do
     to job_application.applicant_email
     subject 'Job Application: Contact information'
     locals :job_offer => job_application.job_offer
-    content_type :html
+    content_type :plain
     render 'notification/contant_info_email'
   end
 
@@ -65,7 +65,7 @@ JobVacancy::App.mailer :notification do
     to job_sharing.contact_email
     subject 'Job Sharing: Offer information'
     locals :job_offer => job_sharing.job_offer
-    content_type :html
+    content_type :plain
     render 'notification/sharing_email'
   end
 
