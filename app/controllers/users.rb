@@ -64,13 +64,13 @@ JobVacancy::App.controllers :users do
       flash[:error] = 'User not exist'
       redirect '/login'
     else  
-    @new_password = @user.new_password
-    @user.password= (@new_password)
-    @user.save
-    @password_generator = PasswordGenerator.create_for(user_email, @new_password)
-    @password_generator.process
-    flash[:success] = 'New password sent'
-    redirect '/login'
+      @new_password = @user.new_password
+      @user.password= (@new_password)
+      @user.save
+      @password_generator = PasswordGenerator.create_for(user_email, @new_password)
+      @password_generator.process
+      flash[:success] = 'New password sent'
+      redirect '/login'
     end
   end
 
