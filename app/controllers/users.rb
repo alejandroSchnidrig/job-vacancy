@@ -34,7 +34,7 @@ JobVacancy::App.controllers :users do
       @user = User.new(params[:user])
       if (params[:user][:password] == password_confirmation)
         unless @user.verify_password_is_strong(password_confirmation)
-           flash.now[:error] = 'weak password entered'
+           flash.now[:error] = 'Weak password entered'
            render 'users/new'
         else
             if @user.save

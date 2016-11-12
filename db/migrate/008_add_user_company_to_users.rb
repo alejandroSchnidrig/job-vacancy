@@ -1,4 +1,4 @@
-migration 9, :add_user_company_to_users do
+migration 8, :add_user_company_to_users do
   up do
     modify_table :users do
       add_column :company, String
