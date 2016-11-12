@@ -20,6 +20,10 @@ JobVacancy::App.controllers :users do
   # end
 
   get :new, :map => '/register' do
+    if signed_in?
+     flash[:error] = 'You can not sign up if you are logged in'
+     redirect '/' 
+    end
     @user = User.new
     render 'users/new'
   end
