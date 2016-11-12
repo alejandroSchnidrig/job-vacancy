@@ -43,26 +43,19 @@ JobVacancy::App.controllers :job_offers do
   # Warning: this code need refactoring
   post :search do
     field = params[:q].strip.downcase
-    new_field = field.partition(":").last.strip
+    @search_tool = SearchTool.new
     if field.include?":" 
-      if field.include?"location:"
-        @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
+      if (field.include?("title:") || field.include?("location:") || field.include?("description:"))
+        @offers = @search_tool.search(field)
         render 'job_offers/list' 
-      elsif field.include?"description:"
-        @offers = JobOffer.all(:description.like => "%"+new_field+"%")
-        render 'job_offers/list'
-      elsif field.include?"title:"
-        @offers = JobOffer.all(:title.like => "%"+new_field+"%")
-        render 'job_offers/list'
       else
-        flash[:error] = 'Invalid search filed'
-        redirect 'job_offers/latest'
+       flash[:error] = 'Invalid search filed'
+       redirect 'job_offers/latest'
       end  
     else
-      @offers = JobOffer.all(:title.like => "%"+field+"%")
-      render 'job_offers/list'  
+      @offers = @search_tool.default_search(field)
+      render 'job_offers/list'
     end
-
   end
 
   post :apply, :with => :offer_id do
