@@ -13,9 +13,15 @@ class SearchTool
       @offers      
     end
 
-    def default_search(field)
+    def default_search_title(field)
       @offers = JobOffer.new
       @offers = JobOffer.all(:title.like => "%"+field+"%")
+      @offers	
+    end
+
+    def default_search_location(field)
+      @offers = JobOffer.new
+      @offers = JobOffer.all(:location.like => "%"+field+"%")
       @offers	
     end
 

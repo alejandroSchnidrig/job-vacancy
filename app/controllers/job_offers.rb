@@ -53,7 +53,7 @@ JobVacancy::App.controllers :job_offers do
        redirect 'job_offers/latest'
       end  
     else
-      @offers = @search_tool.default_search(field)
+      @offers = @search_tool.default_search_title(field)
       render 'job_offers/list'
     end
   end
@@ -99,8 +99,8 @@ JobVacancy::App.controllers :job_offers do
 
   get :find_near do
     @job_offer = JobOffer.get(params[:offer_id])
-    location = @job_offer.location
-    @offers = JobOffer.all(:location.like => "%"+location+"%") 
+    @search_tool = SearchTool.new
+    @offers = @search_tool.default_search_location(@job_offer.location) 
     render 'job_offers/list'
   end
 
