@@ -25,7 +25,7 @@ class User
   end
 
   def generate_password 
-    new_password = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
+    new_password = Array.new(15){[*"A".."J", *"0".."9", *"a".."j"].sample}.join
   end
 
   def new_password
