@@ -13,6 +13,7 @@ class User
   property :crypted_password, String
   property :email, String
   property :company, String
+  property :code, String
   has n, :job_offers
 
   validates_presence_of :name
@@ -27,10 +28,6 @@ class User
   def generate_code
     code = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
   end
-
-  def set_code
-    new_code = self.generate_code
-  end 
 
   def self.authenticate(email, password)
     user = User.find_by_email(email)
