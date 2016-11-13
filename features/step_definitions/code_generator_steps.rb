@@ -27,10 +27,13 @@ end
 
 When(/^I put my email address$/) do
   fill_in('code_generator[user_email]', :with =>'juan.perez@gmail.com')
-  click_button('Generate')
 end
 
-Then(/^i can see an email with new password$/) do
+When(/^I click generate buttom$/) do
+  click_button('Generate')
+end  
+
+Then(/^i can see an email with a code$/) do
   page.should have_content('Code sent')
 end
 
