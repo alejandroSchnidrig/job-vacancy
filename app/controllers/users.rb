@@ -54,7 +54,7 @@ JobVacancy::App.controllers :users do
   get :password_recovery do
     @user =  User.new
     @code_generator = CodeGenerator.new
-    render 'users/password_change'
+    render 'users/password_recovery'
   end
 
   post :send do  
@@ -64,14 +64,44 @@ JobVacancy::App.controllers :users do
       flash[:error] = 'User not exist'
       redirect '/login'
     else  
-      @code = @user.set_code
-      @user.password= (@code)
+      @code = @user.generate_code
+      @user.code = @code
       @user.save
       @code_generator = CodeGenerator.create_for(user_email, @code)
       @code_generator.process
       flash.now[:success] = 'Code sent'
-      render 'users/password_change'
+      render 'users/password_recovery'
     end
+  end
+
+  get :password_change do
+    @user =  User.new
+    render 'users/password_change'
+  end
+
+  post :apply_password do
+    user_code = params[:user][:code]
+    new_password = params[:user][:password]
+    password_confirmation = params[:user][:password_confirmation]
+    @user = User.first(:code => user_code)
+    if @user == nil
+      flash[:error] = 'Incorrect code, please try again!'
+      redirect 'users/password_recovery'
+    elsif (new_password == password_confirmation)
+      unless @user.verify_password_is_strong(password_confirmation)
+           flash[:error] = 'Weak password entered, please try again!'
+           redirect 'users/password_recovery'
+      else
+        if (@user.code == user_code)
+          @user.password= (new_password)
+          @user.code = nil
+          @user.save
+          flash[:success] = 'New password create'
+          redirect '/login'
+        end   
+      end 
+    end   
+
   end
 
 end
