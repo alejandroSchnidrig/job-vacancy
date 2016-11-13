@@ -8,7 +8,6 @@ describe JobApplication do
 
 		it { should respond_to( :applicant_email ) }
 		it { should respond_to( :job_offer) }
-        it { should respond_to( :offerer_email ) }
 		it { should respond_to( :link_cv) }
 
 	end

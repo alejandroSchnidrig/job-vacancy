@@ -20,6 +20,10 @@ JobVacancy::App.controllers :users do
   # end
 
   get :new, :map => '/register' do
+    if signed_in?
+     flash[:error] = 'You can not sign up if you are logged in'
+     redirect '/' 
+    end
     @user = User.new
     render 'users/new'
   end
@@ -30,7 +34,7 @@ JobVacancy::App.controllers :users do
       @user = User.new(params[:user])
       if (params[:user][:password] == password_confirmation)
         unless @user.verify_password_is_strong(password_confirmation)
-           flash.now[:error] = 'weak password entered'
+           flash.now[:error] = 'Weak password entered'
            render 'users/new'
         else
             if @user.save
@@ -60,13 +64,13 @@ JobVacancy::App.controllers :users do
       flash[:error] = 'User not exist'
       redirect '/login'
     else  
-    @new_password = @user.new_password
-    @user.password= (@new_password)
-    @user.save
-    @password_generator = PasswordGenerator.create_for(user_email, @new_password)
-    @password_generator.process
-    flash[:success] = 'New password sent'
-    redirect '/login'
+      @new_password = @user.new_password
+      @user.password= (@new_password)
+      @user.save
+      @password_generator = PasswordGenerator.create_for(user_email, @new_password)
+      @password_generator.process
+      flash[:success] = 'New password sent'
+      redirect '/login'
     end
   end
 

@@ -27,5 +27,5 @@ When(/^I complete the password field with a weak one$/) do
 end
 
 Then(/^i can see the weak password entered legend$/) do
-  page.should have_content('weak password entered')
+  page.should have_content('Weak password entered')
 end

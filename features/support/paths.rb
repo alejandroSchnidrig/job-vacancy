@@ -15,6 +15,9 @@ module NavigationHelpers
 
     when /the registration page/
       '/register'
+
+    when /register/ 
+      '/register'
       
      when /i can see my gravatar at the top page/
           '/'

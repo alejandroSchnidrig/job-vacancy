@@ -43,36 +43,26 @@ JobVacancy::App.controllers :job_offers do
   # Warning: this code need refactoring
   post :search do
     field = params[:q].strip.downcase
-    new_field = field.partition(":").last.strip
+    @search_tool = SearchTool.new
     if field.include?":" 
-      if field.include?"location:"
-        @offers = JobOffer.all(:location.like => "%"+new_field+"%") 
+      if (field.include?("title:") || field.include?("location:") || field.include?("description:"))
+        @offers = @search_tool.search(field)
         render 'job_offers/list' 
-      elsif field.include?"description:"
-        @offers = JobOffer.all(:description.like => "%"+new_field+"%")
-        render 'job_offers/list'
-      elsif field.include?"title:"
-        @offers = JobOffer.all(:title.like => "%"+new_field+"%")
-        render 'job_offers/list'
       else
         flash[:error] = 'Invalid search filed'
         redirect 'job_offers/latest'
       end  
     else
-      @offers = JobOffer.all(:title.like => "%"+field+"%")
-      render 'job_offers/list'  
+      @offers = @search_tool.default_search_title(field)
+      render 'job_offers/list'
     end
-
   end
 
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])    
     applicant_email = params[:job_application][:applicant_email]
-    @job_offer.apply_email = applicant_email
     link_cv = params[:job_application][:link_cv]
-    @job_offer.cv_link = link_cv
     @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
-    @job_application.offerer_email = @job_offer.owner.email
     valid_cv = @job_application.valid_cv?(link_cv) 
     unless  valid_cv
       flash.now[:error] = 'CV link is mandatory'
@@ -95,7 +85,6 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.get(params[:offer_id])    
     contact_email = params[:job_sharing][:contact_email]
     comments = params[:job_sharing][:comments]
-    @job_offer.comments = comments
     @job_sharing = JobSharing.create_for(contact_email, comments, @job_offer)
     valid_email = @job_sharing.valid_email?(contact_email) 
     if valid_email
@@ -110,8 +99,8 @@ JobVacancy::App.controllers :job_offers do
 
   get :find_near do
     @job_offer = JobOffer.get(params[:offer_id])
-    location = @job_offer.location
-    @offers = JobOffer.all(:location.like => "%"+location+"%") 
+    @search_tool = SearchTool.new
+    @offers = @search_tool.default_search_location(@job_offer.location) 
     render 'job_offers/list'
   end
 
