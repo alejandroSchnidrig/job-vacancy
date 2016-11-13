@@ -72,13 +72,13 @@ JobVacancy::App.mailer :notification do
     render 'notification/sharing_email'
   end
 
-  email :password_generator_email do | password_generator |
+  email :code_generator_email do | code_generator |
     from 'n2.jobvacancy@gmail.com'
-    to password_generator.user_email
-    subject 'New password: we generate this password for your user'
-    locals :new_password => password_generator.new_password
+    to code_generator.user_email
+    subject 'Code generator: we generate this code for recover your password'
+    locals :code => code_generator.code
     content_type :plain
-    render 'notification/password_email'
+    render 'notification/code_email'
   end
 
 end

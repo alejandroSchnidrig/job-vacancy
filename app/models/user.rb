@@ -24,12 +24,12 @@ class User
     self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
   end
 
-  def generate_password 
-    new_password = Array.new(15){[*"A".."J", *"0".."9", *"a".."j"].sample}.join
+  def generate_code
+    code = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
   end
 
-  def new_password
-    new_password = self.generate_password
+  def set_code
+    new_code = self.generate_code
   end 
 
   def self.authenticate(email, password)

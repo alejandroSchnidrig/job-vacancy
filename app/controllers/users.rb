@@ -51,26 +51,26 @@ JobVacancy::App.controllers :users do
       end
   end
 
-  get :password_generator do
+  get :password_recovery do
     @user =  User.new
-    @password_generator = PasswordGenerator.new
-    render 'users/password_generator'
+    @code_generator = CodeGenerator.new
+    render 'users/password_change'
   end
 
-   post :send do  
-    user_email = params[:password_generator][:user_email]
+  post :send do  
+    user_email = params[:code_generator][:user_email]
     @user = User.first(:email => user_email)
     if @user == nil
       flash[:error] = 'User not exist'
       redirect '/login'
     else  
-      @new_password = @user.new_password
-      @user.password= (@new_password)
+      @code = @user.set_code
+      @user.password= (@code)
       @user.save
-      @password_generator = PasswordGenerator.create_for(user_email, @new_password)
-      @password_generator.process
-      flash[:success] = 'New password sent'
-      redirect '/login'
+      @code_generator = CodeGenerator.create_for(user_email, @code)
+      @code_generator.process
+      flash.now[:success] = 'Code sent'
+      render 'users/password_change'
     end
   end
 

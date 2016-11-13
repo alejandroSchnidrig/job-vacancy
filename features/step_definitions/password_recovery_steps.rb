@@ -22,20 +22,20 @@ When(/^I click on the recovery password button$/) do
 end
 
 When(/^I access to the password recovery page$/) do
-  visit '/users/password_generator'
+  visit '/users/password_recovery'
 end
 
 When(/^I put my email address$/) do
-  fill_in('password_generator[user_email]', :with =>'juan.perez@gmail.com')
+  fill_in('code_generator[user_email]', :with =>'juan.perez@gmail.com')
   click_button('Generate')
 end
 
 Then(/^i can see an email with new password$/) do
-  page.should have_content('New password sent')
+  page.should have_content('Code sent')
 end
 
 When(/^I put an invalid email address$/) do
-  fill_in('password_generator[user_email]', :with =>'juan.perezzzzz@gmail.com')
+  fill_in('code_generator[user_email]', :with =>'juan.perezzzzz@gmail.com')
   click_button('Generate')
 end
 
