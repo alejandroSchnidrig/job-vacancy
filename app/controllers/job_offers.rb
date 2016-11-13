@@ -49,8 +49,8 @@ JobVacancy::App.controllers :job_offers do
         @offers = @search_tool.search(field)
         render 'job_offers/list' 
       else
-       flash[:error] = 'Invalid search filed'
-       redirect 'job_offers/latest'
+        flash[:error] = 'Invalid search filed'
+        redirect 'job_offers/latest'
       end  
     else
       @offers = @search_tool.default_search_title(field)
