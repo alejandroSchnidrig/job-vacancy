@@ -13,6 +13,7 @@ class User
   property :crypted_password, String
   property :email, String
   property :company, String
+  property :code, String
   has n, :job_offers
 
   validates_presence_of :name
@@ -24,13 +25,9 @@ class User
     self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
   end
 
-  def generate_password 
-    new_password = Array.new(15){[*"A".."J", *"0".."9", *"a".."j"].sample}.join
+  def generate_code
+    code = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
   end
-
-  def new_password
-    new_password = self.generate_password
-  end 
 
   def self.authenticate(email, password)
     user = User.find_by_email(email)

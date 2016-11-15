@@ -104,6 +104,16 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/list'
   end
 
+  get :title do
+    @offers = JobOffer.all(:order => [ :title.asc ])
+    render 'job_offers/list'
+  end 
+
+  get :location do
+    @offers = JobOffer.all(:order => [ :location.asc ])
+    render 'job_offers/list'
+  end  
+
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user

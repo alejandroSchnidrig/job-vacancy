@@ -1,17 +1,17 @@
-class PasswordGenerator
+class CodeGenerator
 
 	attr_accessor :user_email
-	attr_accessor :new_password
+	attr_accessor :code
 
-	def self.create_for(email, password)
-		app = PasswordGenerator.new
+	def self.create_for(email, code)
+		app = CodeGenerator.new
 		app.user_email = email
-		app.new_password = password
+		app.code = code
 		app
 	end
 
 	def process
-    JobVacancy::App.deliver(:notification, :password_generator_email, self)
+    JobVacancy::App.deliver(:notification, :code_generator_email, self)
     end
 
     def valid_email?(email)
