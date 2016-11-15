@@ -7,7 +7,7 @@ Given(/^I access to the login page$/) do
 end
 
 When(/^I click on singed up link$/) do
-  click_button('Sign Up')
+  click_link('Sign Up')
 end
 
 Then(/^I access to the registration page$/) do
