@@ -87,21 +87,21 @@ JobVacancy::App.controllers :users do
     if @user == nil
       flash[:error] = 'Incorrect code, please try again!'
       redirect 'users/password_recovery'
-    elsif (new_password == password_confirmation)
-      unless @user.verify_password_is_strong(password_confirmation)
-           flash[:error] = 'Weak password entered, please try again!'
-           redirect 'users/password_recovery'
+    elsif (new_password != password_confirmation)
+      flash[:error] = 'Passwords do not match'
+      redirect 'users/password_recovery'
+    elsif ((@user.code == user_code) && (new_password == password_confirmation))
+      if @user.verify_password_is_strong(password_confirmation) == false
+        flash[:error] = 'Weak password entered, please try again!'
+        redirect 'users/password_recovery'
       else
-        if (@user.code == user_code)
-          @user.password= (new_password)
-          @user.code = nil
-          @user.save
-          flash[:success] = 'New password create'
-          redirect '/login'
-        end   
-      end 
+        @user.password= (new_password)
+        @user.code = nil
+        @user.save
+        flash[:success] = 'New password create'
+        redirect '/login'
+      end  
     end   
-
   end
 
 end
