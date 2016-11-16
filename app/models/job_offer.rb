@@ -8,6 +8,12 @@ class JobOffer
 	property :description, String
     property :created_on, Date
     property :updated_on, Date
+    #property :latitude , Float,  :allow_nil => true
+    #property :longitude, Float,  :allow_nil => true
+    #property :latitude , Float,  :default => 0
+    #property :longitude, Float,  :default => 0
+    property :latitude , Float
+    property :longitude, Float
     property :is_active, Boolean, :default => true
 	belongs_to :user
 
