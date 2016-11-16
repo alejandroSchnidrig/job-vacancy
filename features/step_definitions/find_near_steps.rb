@@ -11,22 +11,16 @@ Given(/^that exists (\d+) jobs offers \((\d+) with same location\)$/) do |arg1, 
   @job_offer_one.title = 'chef'
   @job_offer_one.location = 'caseros'
   @job_offer_one.description = 'french food'
-  #@job_offer_one.latitude = 1
-  #@job_offer_one.longitude = 2
   @job_offer_one.save
 
   @job_offer_two.title = 'president'
   @job_offer_two.location = 'usa'
   @job_offer_two.description = 'like trump'
-  #@job_offer_two.latitude = 4
-  #@job_offer_two.longitude = 6
   @job_offer_two.save
 
   @job_offer_three.title = 'actor'
   @job_offer_three.location = 'caseros'
   @job_offer_three.description = 'good as robert de niro'
-  #@job_offer_three.latitude = 7
-  #@job_offer_three.longitude = 8
   @job_offer_three.save
 end
 
