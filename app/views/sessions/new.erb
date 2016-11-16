@@ -6,7 +6,7 @@
   <%= f.password_field :password %>
   <br/>
   <%= f.submit "Login", :id => 'loginButton', :class => "btn btn-primary" %>
-  <%= link_to 'Sign Up', url_for(:users, :new), :class => "btn btn-primary" %>
+  <%= link_to 'Sign Up', url_for(:users, :new) %>
   <br/>
   <br/>
   <%= link_to 'I forgot my password', url_for(:users, :password_generator) %>
