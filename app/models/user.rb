@@ -41,12 +41,19 @@ class User
 
   def verify_password_is_strong(password)
       checker = StrongPassword::StrengthChecker.new(password)
-      checker.is_strong?(min_entropy: 16)
+      is_valid_pass(password) and checker.is_strong?(min_entropy: 16)
   end
 
   def getGravatarImgAddress
     return 'https://www.gravatar.com/avatar/'  + Digest::MD5.hexdigest(email) + '?s=30'
   end
 
+def is_valid_pass(password)
+  if (password =~ /[A-Z]/ ) and (password =~ /[a-z]/ ) and (password =~ /[0-9]/ ) 
+    true
+  else
+    false
+  end
+end
 
 end

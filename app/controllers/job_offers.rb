@@ -155,7 +155,7 @@ JobVacancy::App.controllers :job_offers do
       if params['create_and_twit']
         TwitterClient.publish(@job_offer)
       end
-      flash[:success] = 'Offer created' + '*id*' + @job_offer.id.to_s  # + params[:latitude].to_s + '*' + @job_offer.latitude.to_s
+      flash[:success] = 'Offer created' # + '*id*' + @job_offer.id.to_s  # + params[:latitude].to_s + '*' + @job_offer.latitude.to_s
       redirect '/job_offers/my'
     else
       @job_offer.errors.each do |e|

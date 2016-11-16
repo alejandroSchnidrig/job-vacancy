@@ -2,7 +2,7 @@ Given(/^that i am a user$/) do
   visit '/register'
   @name = 'juan perez'
   @email = 'juan.perez@gmail.com'
-  @password ='juanperez2016'
+  @password ='juanPerez2016'
   @company = 'Untref'
   fill_in('user[name]', :with => @name)
   fill_in('user[email]', :with => @email)
