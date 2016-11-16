@@ -8,13 +8,13 @@ Feature: Job Offers CRUD
 
   Scenario: Create new offer
     Given I access the new offer page
-    When I fill the title with "Programmer vacancy"
+    When I fill the title with "Programmer vacancy!!!"
 		And confirm the new offer    
     Then I should see "Offer created"
-    And I should see "Programmer vacancy" in My Offers
+    And I should see "Programmer vacancy!!!" in My Offers
 
   Scenario: Update offer
-    Given I have "Programmer vacancy" offer in My Offers
+    Given I have "Programmer vacancy!!!" offer in My Offers
     And I edit it
     And I set title to "Programmer vacancy!!!"
     And I save the modification
@@ -22,7 +22,7 @@ Feature: Job Offers CRUD
     And I should see "Programmer vacancy!!!" in My Offers
 
   Scenario: Delete offer
-    Given I have "Programmer vacancy" offer in My Offers
+    Given I have "Programmer vacancy!!!" offer in My Offers
     Given I delete it
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
