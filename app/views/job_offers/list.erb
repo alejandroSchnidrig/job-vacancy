@@ -14,7 +14,7 @@
 		<th>Latitude</th>
 		<th>Longitude</th>
 		<th>Description</th>
-		<th>Created on</th>
+		<th><%= link_to 'Created on', url_for(:job_offers, :created_on) %></th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>

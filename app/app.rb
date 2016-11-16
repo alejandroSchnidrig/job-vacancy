@@ -9,18 +9,18 @@ module JobVacancy
 
     enable :sessions
     
-    # set :delivery_method, :smtp => {
-    #   :address         => 'smtp.gmail.com',
-    #   :port            => '587',
-    #   :user_name       => 'n2.jobvacancy@gmail.com',
-    #   :password        => 'jobjobn2', 
-    #   :authentication  => :login, # :plain, :login, :cram_md5, no auth by default
-    #   :domain          => "gmail.com", # the HELO domain provided by the client to the server
-    # }
-
-    set :delivery_method, :file => {
-      :location => "#{Padrino.root}/tmp/emails",
+    set :delivery_method, :smtp => {
+      :address         => 'smtp.gmail.com',
+      :port            => '587',
+      :user_name       => 'n2.jobvacancy@gmail.com',
+      :password        => 'jobjobn2', 
+      :authentication  => :login, # :plain, :login, :cram_md5, no auth by default
+      :domain          => "gmail.com", # the HELO domain provided by the client to the server
     }
+
+    # set :delivery_method, :file => {
+    #   :location => "#{Padrino.root}/tmp/emails",
+    # }
 
     ##
     # Caching support
