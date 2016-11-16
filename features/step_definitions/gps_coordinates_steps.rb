@@ -30,17 +30,17 @@ Given(/^that exists (\d+) jobs offers \((\d+) with similar gps coordinates\)$/) 
   @job_offer_three.save
 end
 
-When(/^I click Find Near in an offer$/) do
+When(/^I wanna click Find Near in an offer$/) do
   all(:xpath, "(//a[text()='Find Near'])")[0].click
 end
 
-Then(/^i can see the two offers with same location$/) do
+Then(/^i  can see the two offers with same location$/) do
   page.should have_content('caseros') 
   page.should have_content('chef')
   page.should have_content('actor')
 end
 
-Then(/^i can not see the offer with the another location$/) do
+Then(/^i  can not see the offer with the another location$/) do
   page.should have_no_content('usa')
 end
 
