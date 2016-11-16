@@ -117,6 +117,9 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
+        @job_offer.latitude = (params[:latitude].nil?) ? nil : params[:latitude].to_f
+   @job_offer.longitude = (params[:longitude].nil?) ? nil : params[:longitude].to_f
+
     if @job_offer.save
       if params['create_and_twit']
         TwitterClient.publish(@job_offer)
@@ -124,19 +127,37 @@ JobVacancy::App.controllers :job_offers do
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
     else
-      flash.now[:error] = 'Title is mandatory'
+      @job_offer.errors.each do |e|
+       flash.now[:error] = 'Error in post :create - ' +  e.to_s
+     end
       render 'job_offers/new'
     end  
   end
 
   post :update, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_offer.update(params[:job_offer])
+   #(params[:latitude].empty?) ? <EMPTY EXPRESSION> : <NOT EMPTY EXPRESSION>
+   @job_offer.update(
+    :latitude => (params[:latitude].nil?) ? nil : params[:latitude].to_f,
+   :longitude => (params[:longitude].nil?) ? nil : params[:longitude].to_f,
+    :id => @job_offer.id,
+    :title =>  @job_offer.title,
+ :location =>  @job_offer.location,
+   :description =>  @job_offer.description,
+     :created_on =>  @job_offer.created_on,
+     :updated_on  => Time.now,
+   
+     :is_active =>  @job_offer.is_active)
+
+    #@job_offer.update(params[:job_offer])
     if @job_offer.save
       flash[:success] = 'Offer updated'
       redirect '/job_offers/my'
     else
-      flash.now[:error] = 'Title is mandatory'
+       @job_offer.errors.each do |e|
+       flash.now[:error] = 'Error in post :update - ' +  e.to_s
+     end
+      #flash.now[:error] = 'Error in post :update - ' + text
       render 'job_offers/edit'
     end  
   end
@@ -158,7 +179,7 @@ JobVacancy::App.controllers :job_offers do
     if @job_offer.destroy
       flash[:success] = 'Offer deleted'
     else
-      flash.now[:error] = 'Title is mandatory'
+      flash.now[:error] = 'Error in post :destroy '
     end
     redirect 'job_offers/my'
   end
