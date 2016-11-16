@@ -18,15 +18,15 @@ Given(/^that exists (\d+) jobs offers \((\d+) with similar gps coordinates\)$/) 
   @job_offer_two.title = 'actor'
   @job_offer_two.location = 'caseros city'
   @job_offer_two.description = 'like trump'
-  @job_offer_one.latitude = -37.4
-  @job_offer_one.longitude = -58.9
+  @job_offer_two.latitude = -37.4
+  @job_offer_two.longitude = -58.9
   @job_offer_two.save
 
   @job_offer_three.title = 'stripper'
   @job_offer_three.location = 'new york'
   @job_offer_three.description = 'good as robert de niro'
-  @job_offer_one.latitude = -36.5
-  @job_offer_one.longitude = -58.8
+  @job_offer_three.latitude = -36.5
+  @job_offer_three.longitude = -58.8
   @job_offer_three.save
 end
 

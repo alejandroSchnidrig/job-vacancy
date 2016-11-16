@@ -19,9 +19,12 @@ class SearchTool
       @offers	
     end
 
-    def default_search_location(field)
+    def default_search_location(param1,param2,field)
       @offers = JobOffer.new
-      @offers = JobOffer.all(:location.like => "%"+field+"%")
+      #offers = JobOffer.all(:location.like => "%"+field+"%")
+      #job_offer.latitude,@job_offer.longitude
+      @offers = JobOffer.all(:latitude.gte => param1-0.5, :latitude.lte => param1+0.5) + JobOffer.all(:longitude.gte => param2-0.5, :longitude.lte => param2+0.5)
+      
       @offers	
     end
 

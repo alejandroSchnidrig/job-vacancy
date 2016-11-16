@@ -100,7 +100,7 @@ JobVacancy::App.controllers :job_offers do
   get :find_near do
     @job_offer = JobOffer.get(params[:offer_id])
     @search_tool = SearchTool.new
-    @offers = @search_tool.default_search_location(@job_offer.location) 
+    @offers = @search_tool.default_search_location(@job_offer.latitude,@job_offer.longitude,@job_offer.location) 
     render 'job_offers/list'
   end
 
