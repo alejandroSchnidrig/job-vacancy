@@ -11,8 +11,6 @@
 	<tr>
 		<th><%= link_to 'Title', url_for(:job_offers, :title) %></th>
 		<th><%= link_to 'Location', url_for(:job_offers, :location) %></th>
-		<th>Latitude</th>
-		<th>Longitude</th>
 		<th>Description</th>
 		<th><%= link_to 'Created on', url_for(:job_offers, :created_on) %></th>
 		<th>Actions</th>
@@ -25,12 +23,6 @@
 		</td>
 		<td>
 			<%= offer.location %>
-		</td>
-		<td>
-			<%= offer.latitude %>
-		</td>
-		<td>
-			<%= offer.longitude %>
 		</td>
 		<td>
 			<%= offer.description %>
