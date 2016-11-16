@@ -21,14 +21,11 @@ class SearchTool
 
     def default_search_location(param1,param2,field)
       @offers = JobOffer.new
-      #offers = JobOffer.all(:location.like => "%"+field+"%")
-      #job_offer.latitude,@job_offer.longitude
       if (param1.nil? or param2.nil? or param1 == 0.0 or param2 == 0.0)
         @offers = JobOffer.all(:location.like => "%"+field+"%")
       else
-        @offers = (JobOffer.all(:latitude.gte => param1-0.5, :latitude.lte => param1+0.5) &  JobOffer.all(:longitude.gte => param2-0.5, :longitude.lte => param2+0.5))      +      JobOffer.all(:location.like => "%"+field+"%")
+        @offers = (JobOffer.all(:latitude.gte => param1-0.5, :latitude.lte => param1+0.5) &  JobOffer.all(:longitude.gte => param2-0.5, :longitude.lte => param2+0.5)) + JobOffer.all(:location.like => "%"+field+"%")
       end
-
       @offers	
     end
 
