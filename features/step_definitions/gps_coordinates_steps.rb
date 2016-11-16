@@ -15,15 +15,15 @@ Given(/^that exists (\d+) jobs offers \((\d+) with similar gps coordinates\)$/) 
   @job_offer_one.longitude = -58.8
   @job_offer_one.save
 
-  @job_offer_two.title = 'president'
-  @job_offer_two.location = 'usa'
+  @job_offer_two.title = 'actor'
+  @job_offer_two.location = 'caseros city'
   @job_offer_two.description = 'like trump'
   @job_offer_one.latitude = -37.4
   @job_offer_one.longitude = -58.9
   @job_offer_two.save
 
-  @job_offer_three.title = 'actor'
-  @job_offer_three.location = 'caseros'
+  @job_offer_three.title = 'stripper'
+  @job_offer_three.location = 'new york'
   @job_offer_three.description = 'good as robert de niro'
   @job_offer_one.latitude = -36.5
   @job_offer_one.longitude = -58.8
@@ -36,11 +36,12 @@ end
 
 Then(/^i  can see the two offers with same location$/) do
   page.should have_content('caseros') 
+  page.should have_content('caseros city') 
   page.should have_content('chef')
   page.should have_content('actor')
 end
 
 Then(/^i  can not see the offer with the another location$/) do
-  page.should have_no_content('usa')
+  page.should have_no_content('new york')
 end
 
