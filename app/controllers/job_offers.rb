@@ -117,14 +117,45 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
-        @job_offer.latitude = (params[:latitude].nil?) ? nil : params[:latitude].to_f
-   @job_offer.longitude = (params[:longitude].nil?) ? nil : params[:longitude].to_f
+
+    #@job_offer.latitude = (params[:latitude].nil?) ? nil : params[:latitude].to_f
+    #@job_offer.longitude = (params[:longitude].nil?) ? nil : params[:longitude].to_f
+    
+    #@product = Product.new({:serial => params[:serial], :value => params[:value]})
+            #     @job_offer = JobOffer.new
+            #     @job_offer.owner = current_user
+
+              # esto va  bien
+            # @job_offer.latitude = params[:job_offer][:latitude]
+             # @job_offer.longitude = params[:job_offer][:longitude]
+              @job_offer.latitude = (params[:job_offer][:latitude].try(:empty?)) ? nil : params[:job_offer][:latitude]
+              @job_offer.longitude = (params[:job_offer][:longitude].try(:empty?)) ? nil : params[:job_offer][:longitude]
+              # prueba try(:empty?) en ves de empty?
+
+            #  @job_offer.title = params[:title]
+            #  @job_offer.location = params[:location]
+            #  @job_offer.description = params[:description]
+            #  @job_offer.created_on = Time.now
+
+ #    ({:owner => current_user, 
+ #      :latitude => params[:latitude],
+ # :longitude => params[:longitude],
+ #  :title => params[:title],
+ #   :location => params[:location],
+ #    :description => params[:description],
+ #     :created_on => Time.now,
+ #       :updated_on => params[:updated_on]
+ #      })
+    
+
+    #@job_offer.latitude = (params[:job_offer][:latitude].nil?) ? 0.0 : params[:job_offer][:latitude]
+    #@job_offer.longitude = (params[:job_offer][:longitude].nil?) ? 0.0 : params[:job_offer][:longitude]
 
     if @job_offer.save
       if params['create_and_twit']
         TwitterClient.publish(@job_offer)
       end
-      flash[:success] = 'Offer created'
+      flash[:success] = 'Offer created' + '*id*' + @job_offer.id.to_s  # + params[:latitude].to_s + '*' + @job_offer.latitude.to_s
       redirect '/job_offers/my'
     else
       @job_offer.errors.each do |e|
@@ -136,18 +167,26 @@ JobVacancy::App.controllers :job_offers do
 
   post :update, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
+
+  @job_offer.update(params[:job_offer])
+  @job_offer.latitude = (params[:job_offer][:latitude].empty?) ? nil : params[:job_offer][:latitude]
+  @job_offer.longitude = (params[:job_offer][:longitude].empty?) ? nil : params[:job_offer][:longitude]
+
+
+    #estaba:
    #(params[:latitude].empty?) ? <EMPTY EXPRESSION> : <NOT EMPTY EXPRESSION>
-   @job_offer.update(
-    :latitude => (params[:latitude].nil?) ? nil : params[:latitude].to_f,
-   :longitude => (params[:longitude].nil?) ? nil : params[:longitude].to_f,
-    :id => @job_offer.id,
-    :title =>  @job_offer.title,
- :location =>  @job_offer.location,
-   :description =>  @job_offer.description,
-     :created_on =>  @job_offer.created_on,
-     :updated_on  => Time.now,
+ #   @job_offer.update(
+ #    :latitude => (params[:latitude].nil?) ? nil : params[:latitude].to_f,
+ #   :longitude => (params[:longitude].nil?) ? nil : params[:longitude].to_f,
+ #    :id => @job_offer.id,
+ #    :title =>  @job_offer.title,
+ # :location =>  @job_offer.location,
+ #   :description =>  @job_offer.description,
+ #     :created_on =>  @job_offer.created_on,
+ #     :updated_on  => Time.now,
    
-     :is_active =>  @job_offer.is_active)
+ #     :is_active =>  @job_offer.is_active)
+   # fin estaba
 
     #@job_offer.update(params[:job_offer])
     if @job_offer.save
