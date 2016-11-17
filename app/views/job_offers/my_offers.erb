@@ -37,6 +37,7 @@
 
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
+                        <%= link_to 'Clone', url_for(:job_offers, :clone, :offer_id => offer.id), :class => "btn btn-primary" %>
 			<%- form_tag url(:job_offers, :destroy, :offer_id => offer.id), :method => :delete, :style => 'display:inline' do %>
                 <button type='submit' title="Delete offer" rel='tooltip' class="btn btn-secondary" >Delete
                 </button>
