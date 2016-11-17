@@ -5,15 +5,15 @@ class JobSharing
 	attr_accessor :job_offer
 
 	def self.create_for(email, comments, offer)
-		app = JobSharing.new
-		app.contact_email = email
-		app.comments = comments
-		app.job_offer = offer
-		app
+	  app = JobSharing.new
+	  app.contact_email = email
+	  app.comments = comments
+	  app.job_offer = offer
+	  app
 	end
 
 	def process
-    JobVacancy::App.deliver(:notification, :sharing_email, self)
+      JobVacancy::App.deliver(:notification, :sharing_email, self)
     end
 
     def valid_email?(email)

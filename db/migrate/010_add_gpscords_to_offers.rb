@@ -6,5 +6,12 @@ migration 10, :add_gpscords_to_offers do
     end
   end
 
+  down do
+    modify_table :users do
+      drop_column :latitude
+      drop_column :longitude
+    end
+  end
+
  
 end

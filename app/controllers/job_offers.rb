@@ -128,7 +128,7 @@ JobVacancy::App.controllers :job_offers do
       redirect '/job_offers/my'
     else
       @job_offer.errors.each do |e|
-       flash.now[:error] = 'Error in post :create - ' +  e.to_s
+       flash.now[:error] = e.to_s
      end
       render 'job_offers/new'
     end  
@@ -144,9 +144,8 @@ JobVacancy::App.controllers :job_offers do
       redirect '/job_offers/my'
     else
        @job_offer.errors.each do |e|
-       flash.now[:error] = 'Error in post :update - ' +  e.to_s
+       flash.now[:error] = e.to_s
      end
-      #flash.now[:error] = 'Error in post :update - ' + text
       render 'job_offers/edit'
     end  
   end
