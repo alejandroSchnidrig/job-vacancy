@@ -9,7 +9,7 @@ Background:
 
 
 Scenario: clone an offer
-Given I access the offers list page
+Given I access to my offers list page
 When I clone an offer
-Then I can see the cloned offer in the offer list page
+Then I can see the cloned offer in my offer list page
 
