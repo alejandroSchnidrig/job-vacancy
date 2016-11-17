@@ -13,6 +13,10 @@ class JobApplication
 		app
 	end
 
+def self.obtener_email
+    job_offer.owner.email
+  end
+
 	def process_to_applicant
     JobVacancy::App.deliver(:notification, :contact_info_email, self)
   end

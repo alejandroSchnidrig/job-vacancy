@@ -54,4 +54,8 @@ class JobOffer
 	  self.is_active = false
 	end
 
+	def self.get_email
+		user.email
+	end
+
 end

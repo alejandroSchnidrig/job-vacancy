@@ -56,22 +56,28 @@ JobVacancy::App.controllers :job_offers do
 
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])  
-    
-
+    owner_email_address = ''
+    #owner_email_address = JobOffer.get_email
     applicant_email = params[:job_application][:applicant_email]
-      owner_email = ''
-      if signed_in? 
-        owner_email = current_user.email
-      end
+    link_cv = params[:job_application][:link_cv]
+    @job_application2 = JobApplication.create_for(applicant_email, link_cv, @job_offer)
+    owner_email_address = @job_application2.job_offer.owner.email
+
+    # applicant_email = params[:job_application][:applicant_email]
+    #   owner_email = ''
+    #   if signed_in? 
+    #     owner_email = current_user.email
+    #   end
 
    # if @job_offer.owner.email.to_s.eql?(applicant_email.to_s)   #current_user.to_s
-    if owner_email.to_s.eql?(applicant_email.to_s)
-       flash[:error] = 'You can not apply to your own offer!'
+  #estaba ok  if owner_email.to_s.eql?(applicant_email.to_s)
+   if owner_email_address.to_s.eql?(applicant_email.to_s)
+       flash[:error] = 'You can not apply to your own offer!' #+ owner_email_address.to_s
        #render '/job_offers/apply'
        redirect '/job_offers'
     #end
     else
-        link_cv = params[:job_application][:link_cv]
+        #link_cv = params[:job_application][:link_cv]
         @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
         valid_cv = @job_application.valid_cv?(link_cv) 
         unless  valid_cv
@@ -82,7 +88,7 @@ JobVacancy::App.controllers :job_offers do
             if valid_email
               @job_application.process_to_applicant
               @job_application.process_to_offerer
-              flash[:success] = 'Contact information sent' #+ owner_email.to_s + '**' + applicant_email.to_s #+ @job_offer.owner.email.to_s + applicant_email.to_s
+              flash[:success] = 'Contact information sent' # +  owner_email_address.to_s #+ owner_email.to_s + '**' + applicant_email.to_s #+ @job_offer.owner.email.to_s + applicant_email.to_s
               redirect '/job_offers'
             else
               flash.now[:error] = 'Invalid email direction'
