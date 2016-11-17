@@ -139,6 +139,14 @@ describe User do
 		    expect(@user.verify_password_is_strong('Madonna2016')).to eq true
 		end
 
+		it 'deberia obtener weak password As90Zp83' do
+		    expect(@user.verify_password_is_strong('As90Zp83')).to eq false
+		end
+
+		it 'deberia obtener strong password As90Zp83j' do
+		    expect(@user.verify_password_is_strong('As90Zp83j')).to eq true
+		end
+
 	end
 
 end

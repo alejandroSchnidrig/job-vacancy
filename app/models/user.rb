@@ -45,7 +45,7 @@ class User
   end
 
 def is_valid_pass(password)
-  if (password =~ /[A-Z]/ ) and (password =~ /[a-z]/ ) and (password =~ /[0-9]/ ) 
+  if (password =~ /[A-Z]/ ) and (password =~ /[a-z]/ ) and (password =~ /[0-9]/ ) and (password.length > 8)
     true
   else
     false

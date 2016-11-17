@@ -34,7 +34,7 @@ JobVacancy::App.controllers :users do
       @user = User.new(params[:user])
       if (params[:user][:password] == password_confirmation)
         unless @user.verify_password_is_strong(password_confirmation)
-           flash.now[:error] = 'Weak password entered'
+           flash.now[:error] = 'The password must contain uppercase, lowercase, numbers and have more than 8 characters'
            render 'users/new'
         else
             if @user.save
@@ -92,7 +92,7 @@ JobVacancy::App.controllers :users do
       redirect 'users/password_recovery'
     elsif ((@user.code == user_code) && (new_password == password_confirmation))
       if @user.verify_password_is_strong(password_confirmation) == false
-        flash[:error] = 'Weak password entered, please try again!'
+        flash[:error] = 'The password must contain uppercase, lowercase, numbers and have more than 8 characters'
         redirect 'users/password_recovery'
       else
         @user.password= (new_password)

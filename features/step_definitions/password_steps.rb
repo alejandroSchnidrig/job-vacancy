@@ -27,5 +27,5 @@ When(/^I complete the password field with a weak one$/) do
 end
 
 Then(/^i can see the weak password entered legend$/) do
-  page.should have_content('Weak password entered')
+  page.should have_content('The password must contain uppercase, lowercase, numbers and have more than 8 characters')
 end
