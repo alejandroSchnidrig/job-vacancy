@@ -10,6 +10,7 @@ Once you have clone this repository, follow these steps to start working:
 * Run **_bundle exec padrino start_ -h 0.0.0.0**, to start the application
 
 * Run "padrino rake" when the web display "internal server error" (because db migration has not run yet)
+* If you are not relying on the data in the database, a rake db:reset would re-run all migrations from scratch. Otherwise you have to make the conflicting migration recognized as already-run by adding to the schema_migrations table.
 
 Some conventions to work on it:
 

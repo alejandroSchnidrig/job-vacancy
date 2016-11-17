@@ -14,13 +14,13 @@ An applicant have applied to your job offer:<br>
 * Location: <%= job_offer.location %><br>
 * Description: <%= job_offer.description %><br>
 <br>
-You can contact the applicant to this offer by writing to <%= job_offer.apply_email %> <br>
+You can contact the applicant to this offer by writing to <%= applicant_email %> <br>
 <br>
 <div>
 Gravatar's profile image from applicant: 
 <img src="<%= applicant %>" alt = "image not found!" > 
 </div>
 <br>
-You can see now the applicant CV following this link: <%= job_offer.cv_link %>
+You can see now the applicant CV following this link: <%= link_cv %>
 </body>
 </html> 

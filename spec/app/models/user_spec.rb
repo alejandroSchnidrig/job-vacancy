@@ -12,6 +12,7 @@ describe User do
 		it { should respond_to( :email ) }
         it { should respond_to( :company ) }
 		it { should respond_to( :job_offers ) }
+		it { should respond_to( :code ) }
 
 	end
 
@@ -83,12 +84,31 @@ describe User do
 			User.authenticate(email, @password).should eq @user
 		end
 
+	end	
+    
+    describe 'gravatar' do
+
+        before do
+			@password = 'password'
+		 	@user = User.new
+		 	@user.email = 'ggab3000@yahoo.com'
+		 	@user.password = @password
+		end
+
 		it 'deberia obtener img completo' do
 
-		      esperado = 'https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c?s=30'
+		    esperado = 'https://www.gravatar.com/avatar/4df81e61d9b28e299e51369e3e97368c?s=30'
 		    # esperado = 'https://www.gravatar.com/avatar/a5ef1ae46ae4e9aa7210a56a4b53a740' 
 		    #esperado = 'nicopaez@gmail.com'
 		    expect(@user.getGravatarImgAddress).to eq(esperado)
+		end
+	end	
+
+    describe 'password strong' do
+
+    	before do
+		 	@user = User.new
+		 	@user.email = 'ggab3000@yahoo.com'
 		end
 
 		it 'deberia obtener weak password 123' do
@@ -109,6 +129,22 @@ describe User do
 
 		it 'deberia obtener weak password guatemal' do
 		    expect(@user.verify_password_is_strong('guatemal')).to eq false
+		end
+
+		it 'deberia obtener weak password madonna2016' do
+		    expect(@user.verify_password_is_strong('madonna2016')).to eq false
+		end
+
+		it 'deberia obtener strong password Madonna2016' do
+		    expect(@user.verify_password_is_strong('Madonna2016')).to eq true
+		end
+
+		it 'deberia obtener weak password As90Zp83' do
+		    expect(@user.verify_password_is_strong('As90Zp83')).to eq false
+		end
+
+		it 'deberia obtener strong password As90Zp83j' do
+		    expect(@user.verify_password_is_strong('As90Zp83j')).to eq true
 		end
 
 	end

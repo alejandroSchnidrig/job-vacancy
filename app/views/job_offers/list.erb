@@ -9,9 +9,10 @@
 
 <table class="table table-bordered">
 	<tr>
-		<th>Title</th>
-		<th>Location</th>
+		<th><%= link_to 'Title', url_for(:job_offers, :title) %></th>
+		<th><%= link_to 'Location', url_for(:job_offers, :location) %></th>
 		<th>Description</th>
+		<th><%= link_to 'Created on', url_for(:job_offers, :created_on) %></th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
@@ -25,6 +26,9 @@
 		</td>
 		<td>
 			<%= offer.description %>
+		</td>		
+		<td>
+			<%= offer.created_on %>
 		</td>		
 		<td>
 			<%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id), :class => "btn btn-primary" %>

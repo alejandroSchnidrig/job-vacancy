@@ -17,7 +17,6 @@ When(/^I apply offer$/) do
 end
 
 Then(/^I don't complete the cv link$/) do
-  
   fill_in('job_application[applicant_email]', :with => 'applicant@test.com')
 end
 

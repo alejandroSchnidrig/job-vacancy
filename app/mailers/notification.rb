@@ -52,9 +52,11 @@ JobVacancy::App.mailer :notification do
 
   email :offerer_info_email do | job_application |
     from 'n2.jobvacancy@gmail.com'
-    to job_application.offerer_email
+    to job_application.job_offer.owner.email
     subject 'Job Application: Applicant information'
     locals :job_offer => job_application.job_offer ,
+           :link_cv => job_application.link_cv,
+           :applicant_email => job_application.applicant_email,
            :applicant =>  job_application.getGravatarImgAddressFromOfferer
     content_type :html
     render 'notification/offerer_info_email'
@@ -64,18 +66,19 @@ JobVacancy::App.mailer :notification do
     from 'n2.jobvacancy@gmail.com'
     to job_sharing.contact_email
     subject 'Job Sharing: Offer information'
-    locals :job_offer => job_sharing.job_offer
+    locals :job_offer => job_sharing.job_offer,
+           :comments => job_sharing.comments
     content_type :plain
     render 'notification/sharing_email'
   end
 
-  email :password_generator_email do | password_generator |
+  email :code_generator_email do | code_generator |
     from 'n2.jobvacancy@gmail.com'
-    to password_generator.user_email
-    subject 'New password: we generate this password for your user'
-    locals :new_password => password_generator.new_password
+    to code_generator.user_email
+    subject 'Code generator: we generate this code for recover your password'
+    locals :code => code_generator.code
     content_type :plain
-    render 'notification/password_email'
+    render 'notification/code_email'
   end
 
 end
