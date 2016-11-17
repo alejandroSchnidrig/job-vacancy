@@ -37,6 +37,17 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/share'
   end
 
+  get :clone, :with =>:offer_id do
+    @job_offer_old = JobOffer.get(params[:offer_id])
+    @job_offer = JobOffer.new
+    @job_offer.title = 'copy of ' + @job_offer_old.title
+    @job_offer.location = 'copy of ' + @job_offer_old.location
+    @job_offer.description = 'copy of ' + @job_offer_old.description
+    @job_offer.latitude = @job_offer_old.latitude
+    @job_offer.longitude = @job_offer_old.longitude
+    render 'job_offers/clone'
+  end
+
   post :search do
     field = params[:q].strip.downcase
     @search_tool = SearchTool.new
@@ -75,6 +86,16 @@ JobVacancy::App.controllers :job_offers do
           render '/job_offers/apply'
         end  
       end
+  end
+
+  post :clone do
+    @job_offer = JobOffer.new(params[:job_offer])
+    @job_offer.created_on = Date.today
+    @job_offer.owner = current_user
+    if @job_offer.save
+      flash[:success] = 'Offer cloned correctly'
+      redirect '/job_offers/my'
+    end
   end
 
   post :send, :with => :offer_id do
