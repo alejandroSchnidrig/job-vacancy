@@ -58,8 +58,6 @@ GEM
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     digest (0.0.1)
-    dm-accepts_nested_attributes_for (1.2.0)
-      dm-core (~> 1.2.0)
     dm-aggregates (1.2.0)
       dm-core (~> 1.2.0)
     dm-ar-finders (1.2.0)
@@ -283,7 +281,6 @@ DEPENDENCIES
   clockwork
   cucumber
   digest
-  dm-accepts_nested_attributes_for (~> 1.2)
   dm-aggregates
   dm-ar-finders
   dm-constraints

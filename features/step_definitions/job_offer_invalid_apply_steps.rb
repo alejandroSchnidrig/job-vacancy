@@ -11,6 +11,11 @@ Given(/^only a "(.*?)" offer exists in the offers list created by me$/) do |job_
   @job_offer.location = 'a nice job'
   @job_offer.description = 'good pay'
   @job_offer.save
+
+  visit '/login'
+  fill_in('user[email]', :with => 'juan.perez@gmail.com')
+  fill_in('user[password]', :with => 'juanPerez2016')
+  click_button('Login')
 end
 
 Given(/^I access the offer's list page$/) do

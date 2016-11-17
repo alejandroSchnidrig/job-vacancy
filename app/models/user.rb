@@ -1,8 +1,9 @@
 require 'digest/md5'
 require 'strong_password'
-require "dm-core"
-require "dm-validations"
-require "dm-accepts_nested_attributes"
+
+#require "dm-core"
+#require "dm-validations"
+#require "dm-accepts_nested_attributes"
 
 class User
   include DataMapper::Resource
@@ -15,7 +16,7 @@ class User
   property :code, String
 
    has n, :job_offers
-  accepts_nested_attributes_for :job_offers
+  #accepts_nested_attributes_for :job_offers
 
 
  # has n, :job_offers
