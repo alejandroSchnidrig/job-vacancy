@@ -1,3 +1,7 @@
+require "dm-core"
+require "dm-validations"
+require "dm-accepts_nested_attributes"
+
 class JobOffer
 	include DataMapper::Resource
 

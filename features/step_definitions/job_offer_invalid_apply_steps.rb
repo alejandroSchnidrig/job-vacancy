@@ -1,4 +1,4 @@
-Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
+Given(/^only a "(.*?)" offer exists in the offers list created by me$/) do |job_title|
   JobOffer.all.destroy
   @job_offer = JobOffer.new
   @user = User.new
@@ -13,18 +13,17 @@ Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
   @job_offer.save
 end
 
-Given(/^I access the offers list page$/) do
-  visit '/job_offers/latest'
+Given(/^I access the offer's list page$/) do
+   visit '/job_offers/latest'
 end
 
-When(/^I apply$/) do
+When(/^I click apply$/) do
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', :with => 'applicant@test.com')
+  fill_in('job_application[applicant_email]', :with => 'juan.perez@gmail.com')
   fill_in('job_application[link_cv]', :with => 'http:////lol')
   click_button('Apply')
 end
 
-Then(/^I should receive a mail with offerer info$/) do
-  page.should have_content('Contact information sent')
+Then(/^I should see the You can not apply to your own offer! legend$/) do
+  page.should have_content('You can not apply to your own offer!')
 end
-

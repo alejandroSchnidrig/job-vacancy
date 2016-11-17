@@ -35,6 +35,7 @@ gem 'clockwork'
 gem 'twitter'
 gem 'digest'
 gem 'strong_password', '~> 0.0.5'
+gem 'dm-accepts_nested_attributes_for', '~> 1.2'
 
 # Test requirements
 group :staging, :production do

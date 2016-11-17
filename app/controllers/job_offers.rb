@@ -45,7 +45,7 @@ JobVacancy::App.controllers :job_offers do
         @offers = @search_tool.search(field)
         render 'job_offers/list' 
       else
-        flash[:error] = 'Invalid search filed'
+        flash[:error] = 'Invalid search field'
         redirect 'job_offers/latest'
       end  
     else
@@ -55,27 +55,35 @@ JobVacancy::App.controllers :job_offers do
   end
 
   post :apply, :with => :offer_id do
-    @job_offer = JobOffer.get(params[:offer_id])    
+    @job_offer = JobOffer.get(params[:offer_id])  
+    
+
     applicant_email = params[:job_application][:applicant_email]
-    link_cv = params[:job_application][:link_cv]
-    @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
-    valid_cv = @job_application.valid_cv?(link_cv) 
-    unless  valid_cv
-      flash.now[:error] = 'CV link is mandatory'
+    if @job_offer.owner.email.eql?(applicant_email)   #current_user.to_s
+       flash[:error] = 'You can not apply to your own offer!'
        render '/job_offers/apply'
-    else
-        valid_email = @job_application.valid_email?(applicant_email) 
-        if valid_email
-          @job_application.process_to_applicant
-          @job_application.process_to_offerer
-          flash[:success] = 'Contact information sent'
-          redirect '/job_offers'
+    end
+    #else
+        link_cv = params[:job_application][:link_cv]
+        @job_application = JobApplication.create_for(applicant_email, link_cv, @job_offer)
+        valid_cv = @job_application.valid_cv?(link_cv) 
+        unless  valid_cv
+          flash.now[:error] = 'CV link is mandatory'
+           render '/job_offers/apply'
         else
-          flash.now[:error] = 'Invalid email direction'
-          render '/job_offers/apply'
-        end  
+            valid_email = @job_application.valid_email?(applicant_email) 
+            if valid_email
+              @job_application.process_to_applicant
+              @job_application.process_to_offerer
+              flash[:success] = 'Contact information sent' #+ @job_offer.owner.email.to_s + applicant_email.to_s
+              redirect '/job_offers'
+            else
+              flash.now[:error] = 'Invalid email direction'
+              render '/job_offers/apply'
+            end  
+          end
       end
-  end
+   # end
 
   post :send, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])    
