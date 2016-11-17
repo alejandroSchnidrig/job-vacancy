@@ -9,7 +9,7 @@ Given(/^that three job offers exist$/) do
   @job_offer_three.owner = User.first
 
   @job_offer_one.title = 'ruby'
-  @job_offer_one.location = 'caseros'
+  @job_offer_one.location = 'zomalia'
   @job_offer_one.description = 'good'
   @job_offer_one.save
 
@@ -43,7 +43,7 @@ end
 
 Then(/^i can see the offer by its location$/) do
   page.should have_content('caseros') 
-  page.should have_content('ruby')
+  page.should have_no_content('ruby')
   page.should have_content('python')
   page.should have_no_content('china')
 end

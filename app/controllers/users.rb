@@ -20,6 +20,10 @@ JobVacancy::App.controllers :users do
   # end
 
   get :new, :map => '/register' do
+    if signed_in?
+     flash[:error] = 'You can not sign up if you are logged in'
+     redirect '/' 
+    end
     @user = User.new
     render 'users/new'
   end
@@ -30,7 +34,7 @@ JobVacancy::App.controllers :users do
       @user = User.new(params[:user])
       if (params[:user][:password] == password_confirmation)
         unless @user.verify_password_is_strong(password_confirmation)
-           flash.now[:error] = 'weak password entered'
+           flash.now[:error] = 'The password must contain uppercase, lowercase, numbers and have more than 8 characters'
            render 'users/new'
         else
             if @user.save
@@ -47,27 +51,57 @@ JobVacancy::App.controllers :users do
       end
   end
 
-  get :password_generator do
+  get :password_recovery do
     @user =  User.new
-    @password_generator = PasswordGenerator.new
-    render 'users/password_generator'
+    @code_generator = CodeGenerator.new
+    render 'users/password_recovery'
   end
 
-   post :send do  
-    user_email = params[:password_generator][:user_email]
+  post :send do  
+    user_email = params[:code_generator][:user_email]
     @user = User.first(:email => user_email)
     if @user == nil
       flash[:error] = 'User not exist'
       redirect '/login'
     else  
-    @new_password = @user.new_password
-    @user.password= (@new_password)
-    @user.save
-    @password_generator = PasswordGenerator.create_for(user_email, @new_password)
-    @password_generator.process
-    flash[:success] = 'New password sent'
-    redirect '/login'
+      @code = @user.generate_code
+      @user.code = @code
+      @user.save
+      @code_generator = CodeGenerator.create_for(user_email, @code)
+      @code_generator.process
+      flash.now[:success] = 'Code sent'
+      render 'users/password_recovery'
     end
+  end
+
+  get :password_change do
+    @user =  User.new
+    render 'users/password_change'
+  end
+
+  post :apply_password do
+    user_code = params[:user][:code]
+    new_password = params[:user][:password]
+    password_confirmation = params[:user][:password_confirmation]
+    @user = User.first(:code => user_code)
+    if @user == nil
+      flash[:error] = 'Incorrect code, please try again!'
+      redirect 'users/password_recovery'
+    elsif (new_password != password_confirmation)
+      flash[:error] = 'Passwords do not match'
+      redirect 'users/password_recovery'
+    elsif ((@user.code == user_code) && (new_password == password_confirmation))
+      if @user.verify_password_is_strong(password_confirmation) == false
+        flash[:error] = 'The password must contain uppercase, lowercase, numbers and have more than 8 characters'
+        redirect 'users/password_recovery'
+      else
+        @user.password= (new_password)
+        @user.code = nil
+        @user.save
+        flash[:success] = 'New password create'
+        redirect '/login'
+      end  
+    end   
   end
 
 end

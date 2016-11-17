@@ -2,7 +2,7 @@ Given(/^that i am a user$/) do
   visit '/register'
   @name = 'juan perez'
   @email = 'juan.perez@gmail.com'
-  @password ='juanperez2016'
+  @password ='juanPerez2016'
   @company = 'Untref'
   fill_in('user[name]', :with => @name)
   fill_in('user[email]', :with => @email)
@@ -22,20 +22,23 @@ When(/^I click on the recovery password button$/) do
 end
 
 When(/^I access to the password recovery page$/) do
-  visit '/users/password_generator'
+  visit '/users/password_recovery'
 end
 
 When(/^I put my email address$/) do
-  fill_in('password_generator[user_email]', :with =>'juan.perez@gmail.com')
-  click_button('Generate')
+  fill_in('code_generator[user_email]', :with =>'juan.perez@gmail.com')
 end
 
-Then(/^i can see an email with new password$/) do
-  page.should have_content('New password sent')
+When(/^I click generate buttom$/) do
+  click_button('Generate')
+end  
+
+Then(/^i can see an email with a code$/) do
+  page.should have_content('Code sent')
 end
 
 When(/^I put an invalid email address$/) do
-  fill_in('password_generator[user_email]', :with =>'juan.perezzzzz@gmail.com')
+  fill_in('code_generator[user_email]', :with =>'juan.perezzzzz@gmail.com')
   click_button('Generate')
 end
 

@@ -3,7 +3,10 @@
 	<tr>
 		<th>Title</th>
 		<th>Location</th>
+		<th>Latitude</th>
+		<th>Longitude</th>
 		<th>Description</th>
+		<th>Created on</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
@@ -16,8 +19,17 @@
 			<%= offer.location %>
 		</td>
 		<td>
+			<%= offer.latitude %>
+		</td>
+		<td>
+			<%= offer.longitude %>
+		</td>
+		<td>
 			<%= offer.description %>
 		</td>		
+		<td>
+			<%= offer.created_on %>
+		</td>	
 		<td>
 			<%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id), :class => "btn btn-primary" %>
 		</td>		

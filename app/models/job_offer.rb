@@ -1,3 +1,7 @@
+#require "dm-core"
+#require "dm-validations"
+#require "dm-accepts_nested_attributes"
+
 class JobOffer
 	include DataMapper::Resource
 
@@ -6,49 +10,52 @@ class JobOffer
 	property :title, String
 	property :location, String
 	property :description, String
-	property :comments, String
-    property :cv_link, String
-    property :apply_email, String
-    property :created_on, Date
-    property :updated_on, Date
-    property :is_active, Boolean, :default => true
+        property :created_on, Date
+        property :updated_on, Date
+        property :latitude , Float
+        property :longitude, Float
+        property :is_active, Boolean, :default => true
 	belongs_to :user
 
 	validates_presence_of :title
 
 	def owner
-		user
+	  user
 	end
 
 	def owner=(a_user)
-		self.user = a_user
+	  self.user = a_user
 	end
 
 	def self.all_active
-		JobOffer.all(:is_active => true)
+	  JobOffer.all(:is_active => true)
 	end
 
 	def self.find_by_owner(user)
-		JobOffer.all(:user => user)
+	  JobOffer.all(:user => user)
 	end
 
 	def self.deactivate_old_offers
-		active_offers = JobOffer.all(:is_active => true)
+	  active_offers = JobOffer.all(:is_active => true)
 
-		active_offers.each do | offer |
-			if (Date.today - offer.updated_on) >= 30
-				offer.deactivate
-				offer.save
-			end
+	  active_offers.each do | offer |
+		if (Date.today - offer.updated_on) >= 30
+		  offer.deactivate
+		  offer.save
 		end
+	    end
 	end
 
 	def activate
-		self.is_active = true
+	  self.is_active = true
 	end
 
 	def deactivate
-		self.is_active = false
+	  self.is_active = false
+	end
+
+	def self.get_email
+		user.email
 	end
 
 end
