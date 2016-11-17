@@ -1,7 +1,12 @@
 Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
   JobOffer.all.destroy
   @job_offer = JobOffer.new
-  @job_offer.owner = User.first
+  @user = User.new
+  @user.name = 'juan perez'
+  @user.email = 'juan.perez@gmail.com'
+  @user.password ='juanPerez2016'
+
+  @job_offer.owner = @user
   @job_offer.title = job_title 
   @job_offer.location = 'a nice job'
   @job_offer.description = 'good pay'

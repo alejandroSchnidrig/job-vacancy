@@ -1,3 +1,7 @@
+#require "dm-core"
+#require "dm-validations"
+#require "dm-accepts_nested_attributes"
+
 class JobOffer
 	include DataMapper::Resource
 
@@ -48,6 +52,10 @@ class JobOffer
 
 	def deactivate
 	  self.is_active = false
+	end
+
+	def self.get_email
+		user.email
 	end
 
 end
